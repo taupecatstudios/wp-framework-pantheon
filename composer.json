@@ -1,0 +1,122 @@
+{
+  "name": "##PROJECT##/##HOSTNAME##",
+  "description": "##DESCRIPTION##",
+  "type": "project",
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "deliciousbrains/wp-migrate-db-pro",
+        "type": "wordpress-plugin",
+        "version": "1.8.1",
+        "dist": {
+          "type": "zip",
+          "url": "https://deliciousbrains.com/dl/wp-migrate-db-pro-latest.zip?licence_key=##WP_MIGRATE_DB_PRO_LICENSE##&site_url=composer-test.dev"
+        },
+        "require": {
+          "composer/installers": "v1.0.7"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "deliciousbrains/wp-migrate-db-pro-media-files",
+        "type": "wordpress-plugin",
+        "version": "1.4.9",
+        "dist": {
+          "type": "zip",
+          "url": "https://deliciousbrains.com/dl/wp-migrate-db-pro-media-files-latest.zip?licence_key=##WP_MIGRATE_DB_PRO_LICENSE##&site_url=composer-test.dev"
+        },
+        "require": {
+          "composer/installers": "v1.0.7"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "deliciousbrains/wp-migrate-db-pro-cli",
+        "type": "wordpress-plugin",
+        "version": "1.3.2",
+        "dist": {
+          "type": "zip",
+          "url": "https://deliciousbrains.com/dl/wp-migrate-db-pro-cli-latest.zip?licence_key=##WP_MIGRATE_DB_PRO_LICENSE##&site_url=composer-test.dev"
+        },
+        "require": {
+          "composer/installers": "v1.0.7"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "advanced-custom-fields/advanced-custom-fields-pro",
+        "version": "5.6.10",
+        "type": "wordpress-plugin",
+        "dist": {
+          "type": "zip",
+          "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download"
+        },
+        "require": {
+          "philippbaschke/acf-pro-installer": "^1.0",
+          "composer/installers": "^1.0"
+        }
+      }
+    },
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    }
+  ],
+  "require": {
+    "advanced-custom-fields/advanced-custom-fields-pro": "*",
+
+    "deliciousbrains/wp-migrate-db-pro": "*",
+    "deliciousbrains/wp-migrate-db-pro-cli": "*",
+    "deliciousbrains/wp-migrate-db-pro-media-files": "*",
+
+    "wpackagist-plugin/akismet": "*",
+    "wpackagist-plugin/classic-editor": "*",
+    "wpackagist-plugin/debug-bar": "*",
+    "wpackagist-plugin/iq-block-country": "dev-trunk",
+    "wpackagist-plugin/limit-login-attempts": "*",
+    "wpackagist-plugin/mergebot": "*",
+    "wpackagist-plugin/pantheon-advanced-page-cache": "*",
+    "wpackagist-plugin/pantheon-hud": "*",
+    "wpackagist-plugin/show-current-template": "*",
+    "wpackagist-plugin/sucuri-scanner": "*",
+    "wpackagist-plugin/theme-check": "*",
+    "wpackagist-plugin/worker": "*",
+    "wpackagist-plugin/wp-log-viewer": "*",
+    "wpackagist-plugin/wp-native-php-sessions": "*",
+
+    "wpackagist-theme/twentyten": "*",
+    "wpackagist-theme/twentyeleven": "*",
+    "wpackagist-theme/twentytwelve": "*",
+    "wpackagist-theme/twentythirteen": "*",
+    "wpackagist-theme/twentyfourteen": "*",
+    "wpackagist-theme/twentyfifteen": "*",
+    "wpackagist-theme/twentysixteen": "*",
+    "wpackagist-theme/twentyseventeen": "*"
+
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Tracy Rotton",
+      "email": "trotton@taupecatstudios.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "extra": {
+    "installer-paths": {
+      "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
+      "web/wp-content/themes/{$name}": ["type:wordpress-theme"]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Copy some stuff over
+
+aws --profile taupecatstudios s3 cp s3://taupecatstudios/taupecat.pem ./
+aws --profile taupecatstudios s3 cp s3://taupecatstudios/taupecat.key ./
+aws --profile taupecatstudios s3 cp s3://taupecatstudios/licenses.bash ./
+aws --profile taupecatstudios s3 cp s3://taupecatstudios/.env ../
+aws --profile taupecatstudios s3 cp s3://taupecatstudios/prepare-commit-msg ../.git/hooks/
+chmod +x ../.git/hooks/prepare-commit-msg
+
+# Go through the files that have variables that need replacing and, well, replace them.
+
+source variables.bash
+source licenses.bash
+
+sed -i '' -e "s/##URL##/$URL/g"                                                 ./https.bash
+
+sed -i '' -e "s/##URL##/$URL/g"                                                 ./https.conf
+
+sed -i '' -e "s/##URL##/$URL/g"                                                 ./default.conf
+
+sed -i '' -e "s/##DB_NAME##/$DB_NAME/g"                                         ./provision.sh
+
+sed -i '' -e "s/##URL##/$URL/g"                                                 ../Vagrantfile
+sed -i '' -e "s/##HOSTNAME##/$HOSTNAME/g"                                       ../Vagrantfile
+
+sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../gulpfile.js
+
+sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../package.json
+sed -i '' -e "s/##DESCRIPTION##/$DESCRIPTION/g"                                 ../package.json
+
+sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../composer.json
+sed -i '' -e "s/##DESCRIPTION##/$DESCRIPTION/g"                                 ../composer.json
+sed -i '' -e "s/##WP_MIGRATE_DB_PRO_LICENSE##/$WP_MIGRATE_DB_PRO_LICENSE/g"     ../composer.json
+sed -i '' -e "s/##HOSTNAME##/$HOSTNAME/g"                                       ../composer.json
+
+sed -i '' -e "s/##MERGEBOT_API_KEY##/$MERGEBOT_API_KEY/g"                       ../src/wp-config.php
+sed -i '' -e "s/##TABLE_PREFIX##/$TABLE_PREFIX/g"                               ../src/wp-config-local.php
+sed -i '' -e "s/##URL##/$URL/g"                                                 ../src/wp-config-local.php
+sed -i '' -e "s/##DB_NAME##/$DB_NAME/g"                                         ../src/wp-config-local.php
+
+sed -i '' -e "s/##MERGEBOT_API_KEY##/$MERGEBOT_API_KEY/g"                       ../src/wp-config.php
+sed -i '' -e "s/##PRODUCTION_DOMAIN##/$PRODUCTION_DOMAIN/g"                     ../src/wp-config.php
+sed -i '' -e "s/##TABLE_PREFIX##/$TABLE_PREFIX/g"                               ../src/wp-config.php
+sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../src/wp-config.php
+
+sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../src/mu-plugin.php
+sed -i '' -e "s/##PROJECT_NAME##/$PROJECT_NAME/g"                               ../src/mu-plugin.php
+
+mv ../src/plugin/wp-framework.php                                               ../src/plugin/$PROJECT.php

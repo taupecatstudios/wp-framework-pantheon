@@ -1,5 +1,5 @@
 # WordPress #
-############
+#############
 /web/wp-config-local.php
 /web/wp-cli.local.yml
 /web/wp-content/uploads
@@ -50,9 +50,30 @@ Thumbs.db
 ._*
 
 # Vim generated files #
-######################
+#######################
 *.un~
 
 # SASS #
-##########
+########
 .sass-cache
+
+# Composer Packages #
+#####################
+/vendor
+
+# Vagrant #
+###########
+/.vagrant
+/ubuntu-xenial-16.04-cloudimg-console.log
+
+# NPM #
+#######
+/node_modules
+/npm-debug.log
+
+# Misc #
+########
+/.env
+/scripts/taupecat.pem
+/scripts/taupecat.key
+/scripts/licenses.bash
