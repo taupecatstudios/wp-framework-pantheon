@@ -22,3 +22,11 @@ New WordPress projects are created based on [Underscores](https://underscores.me
 ## Other Notes
 
 While this is intended for use with projects for Taupecat Studios, feel free to fork and modify for your own projects.
+
+This framework uses [Vagrant](https://vagrantup.com) with [VirtualBox](https://www.virtualbox.org/) for the development environment. In order to work, you should have the following Vagrant plugins installed on your host system:
+
+* vagrant-bindfs
+* vagrant-hostmanager
+* vagrant-share
+* vagrant-triggers
+* vagrant-vbguest
