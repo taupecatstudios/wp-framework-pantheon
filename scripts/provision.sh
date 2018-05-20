@@ -22,29 +22,32 @@ ln -s /vagrant/scripts/default.conf /etc/nginx/sites-enabled/default >/dev/null 
 rm /etc/nginx/nginx.conf >/dev/null 2>&1
 ln -s /vagrant/scripts/nginx.conf /etc/nginx/nginx.conf >/dev/null 2>&1
 
-echo "Installing php7"
+echo "Installing PHP 7.2"
+apt-get install python-software-properties >/dev/null 2>&1
+add-apt-repository ppa:ondrej/php >/dev/null 2>&1
+apt-get update
 apt-get install -y \
-    php \
-    php-cli \
-    php-gd \
-    php-curl \
-    php-memcache \
-    php-fpm \
-    php-xml \
-    php-imagick \
-    php-mbstring \
-    php-mysql \
-    php-xdebug \
-    php-json \
+    php7.2 \
+    php7.2-cli \
+    php7.2-gd \
+    php7.2-curl \
+    php7.2-memcache \
+    php7.2-fpm \
+    php7.2-xml \
+    php7.2-imagick \
+    php7.2-mbstring \
+    php7.2-mysql \
+    php7.2-xdebug \
+    php7.2-json \
     >/dev/null 2>&1
 
-rm /etc/php/7.0/fpm/php.ini >/dev/null 2>&1
-ln -s /vagrant/scripts/php.ini /etc/php/7.0/fpm/php.ini >/dev/null 2>&1
+rm /etc/php/7.2/fpm/php.ini >/dev/null 2>&1
+ln -s /vagrant/scripts/php.ini /etc/php/7.2/fpm/php.ini >/dev/null 2>&1
 
-rm /etc/php/7.0/fpm/pool.d/www.conf >/dev/null 2>&1
-ln -s /vagrant/scripts/www.conf /etc/php/7.0/fpm/pool.d/www.conf >/dev/null 2>&1
+rm /etc/php/7.2/fpm/pool.d/www.conf >/dev/null 2>&1
+ln -s /vagrant/scripts/www.conf /etc/php/7.2/fpm/pool.d/www.conf >/dev/null 2>&1
 
-service php7.0-fpm restart >/dev/null 2>&1
+service php7.2-fpm restart >/dev/null 2>&1
 
 echo "Installing PHPUnit"
 wget https://phar.phpunit.de/phpunit.phar >/dev/null 2>&1

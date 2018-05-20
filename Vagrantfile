@@ -79,9 +79,11 @@ Vagrant.configure("2") do |config|
     v.name = $hostname
   end
 
+  Vagrant.require_version(">= 2.1.1")
+
   # Restart PHP and nginx after up to make sure symlinked config files are read
-  config.trigger.after [:up, :reload] do
-    run_remote "service php7.0-fpm restart && service nginx restart"
+  config.trigger.after [:up, :reload] do |trigger|
+    trigger.run_remote = {inline: "service php7.2-fpm restart && service nginx restart"}
   end
 
 end
