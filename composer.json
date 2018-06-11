@@ -85,7 +85,6 @@
     "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/iq-block-country": "1.1.51",
     "wpackagist-plugin/limit-login-attempts": "*",
-    "wpackagist-plugin/mergebot": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
     "wpackagist-plugin/pantheon-hud": "*",
     "wpackagist-plugin/show-current-template": "*",
