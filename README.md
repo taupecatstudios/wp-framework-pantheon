@@ -28,5 +28,4 @@ This framework uses [Vagrant](https://vagrantup.com) with [VirtualBox](https://w
 * vagrant-bindfs
 * vagrant-hostmanager
 * vagrant-share
-* vagrant-triggers
 * vagrant-vbguest
