@@ -24,9 +24,6 @@ if ( ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php') ) && ( ! isset
  */
 else :
 
-	define( 'MERGEBOT_API_KEY', '##MERGEBOT_API_KEY##' );
-	define( 'MERGEBOT_PLUGIN_MODE', 'production' );
-
 	if ( isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) :
 
 		/** MySQL settings - included in the Pantheon Environment */
@@ -73,21 +70,17 @@ else :
 
 		/** A couple extra tweaks to help things run well on Pantheon. **/
 		// Don't show deprecations; useful under PHP 5.5
-		error_reporting(E_ALL ^ E_DEPRECATED);
+		error_reporting( E_ALL ^ E_DEPRECATED );
 
 		// Force the use of a safe temp directory when in a container
-		if ( defined( 'PANTHEON_BINDING' ) ):
+		if ( defined( 'PANTHEON_BINDING' ) ) {
+			define( 'WP_TEMP_DIR', sprintf( '/srv/bindings/%s/tmp', PANTHEON_BINDING ) );
+		}
 
-				define( 'WP_TEMP_DIR', sprintf( '/srv/bindings/%s/tmp', PANTHEON_BINDING ) );
-
-		endif;
-
-		// Make sure Jetpack is always in debug mode on dev and test
-		if ( ( in_array( $_ENV['PANTHEON_ENVIRONMENT'], array( 'dev', 'test' ) ) ) && ( ! defined( 'JETPACK_DEV_DEBUG' ) ) ) :
-
-				define( 'JETPACK_DEV_DEBUG', true );
-
-		endif;
+		// Make sure Jetpack is always in debug mode in non-live environments
+		if ( ( 'live' !== $_ENV['PANTHEON_ENVIRONMENT'] ) && ( ! defined( 'JETPACK_DEV_DEBUG' ) ) ) {
+			define( 'JETPACK_DEV_DEBUG', true );
+		}
 
 	else :
 
@@ -158,7 +151,9 @@ if ( ( isset( $_SERVER['PANTHEON_ENVIRONMENT'] ) ) && ( php_sapi_name() != 'cli'
  * You can have multiple installations in one database if you give each a unique
  * prefix. Only numbers, letters, and underscores please!
  */
-if ( ! isset( $table_prefix ) ) $table_prefix = '##TABLE_PREFIX##';
+if ( ! isset( $table_prefix ) ) {
+	$table_prefix = '##TABLE_PREFIX##';
+}
 
 /**
  * WordPress Localized Language, defaults to English.
@@ -180,7 +175,9 @@ define( 'WPLANG', '' );
  * You may want to examine $_ENV['PANTHEON_ENVIRONMENT'] to set this to be
  * "true" in dev, but false in test and live.
  */
-if ( ! defined( 'WP_DEBUG' ) ) define( 'WP_DEBUG', false );
+if ( ! defined( 'WP_DEBUG' ) ) {
+	define( 'WP_DEBUG', false );
+}
 
 if ( WP_DEBUG ) {
 
@@ -200,7 +197,9 @@ define( 'DISALLOW_FILE_EDIT', true );
 /* That's all, stop editing! Happy Pressing. */
 
 /** Absolute path to the WordPress directory. */
-if ( ! defined( 'ABSPATH' ) ) define( 'ABSPATH', dirname(__FILE__) . '/' );
+if ( ! defined( 'ABSPATH' ) ) {
+	define( 'ABSPATH', dirname(__FILE__) . '/' );
+}
 
 /** Sets up WordPress vars and included files. */
 require_once( ABSPATH . 'wp-settings.php' );
