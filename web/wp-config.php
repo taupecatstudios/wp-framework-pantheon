@@ -15,16 +15,16 @@
  * keep your config separate, we recommend using a 'wp-config-local.php' file,
  * which you should also make sure you .gitignore.
  */
-if ( ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php') ) && ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) ) :
+if ( ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php') ) && ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) ) {
 
-	require_once(dirname(__FILE__) . '/wp-config-local.php');
+	require_once( dirname(__FILE__) . '/wp-config-local.php' );
 
 /**
  * Pantheon platform settings. Everything you need should already be set.
  */
-else :
+} else {
 
-	if ( isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) :
+	if ( isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) {
 
 		/** MySQL settings - included in the Pantheon Environment */
 
@@ -58,14 +58,14 @@ else :
 		 *
 		 * @since 2.6.0
 		 */
-		define('AUTH_KEY',         $_ENV['AUTH_KEY']);
-		define('SECURE_AUTH_KEY',  $_ENV['SECURE_AUTH_KEY']);
-		define('LOGGED_IN_KEY',    $_ENV['LOGGED_IN_KEY']);
-		define('NONCE_KEY',        $_ENV['NONCE_KEY']);
-		define('AUTH_SALT',        $_ENV['AUTH_SALT']);
-		define('SECURE_AUTH_SALT', $_ENV['SECURE_AUTH_SALT']);
-		define('LOGGED_IN_SALT',   $_ENV['LOGGED_IN_SALT']);
-		define('NONCE_SALT',       $_ENV['NONCE_SALT']);
+		define( 'AUTH_KEY',         $_ENV['AUTH_KEY'] );
+		define( 'SECURE_AUTH_KEY',  $_ENV['SECURE_AUTH_KEY'] );
+		define( 'LOGGED_IN_KEY',    $_ENV['LOGGED_IN_KEY'] );
+		define( 'NONCE_KEY',        $_ENV['NONCE_KEY'] );
+		define( 'AUTH_SALT',        $_ENV['AUTH_SALT'] );
+		define( 'SECURE_AUTH_SALT', $_ENV['SECURE_AUTH_SALT'] );
+		define( 'LOGGED_IN_SALT',   $_ENV['LOGGED_IN_SALT'] );
+		define( 'NONCE_SALT',       $_ENV['NONCE_SALT'] );
 		/**#@-*/
 
 		/** A couple extra tweaks to help things run well on Pantheon. **/
@@ -82,7 +82,7 @@ else :
 			define( 'JETPACK_DEV_DEBUG', true );
 		}
 
-	else :
+	} else {
 
 		/**
 		 * This block will be executed if you have NO wp-config-local.php and you
@@ -105,9 +105,9 @@ else :
 		define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
 		define( 'NONCE_SALT',       'put your unique phrase here' );
 
-	endif;
+	}
 
-endif;
+}
 
 if ( ( isset( $_SERVER['PANTHEON_ENVIRONMENT'] ) ) && ( php_sapi_name() != 'cli' ) ) {
 
