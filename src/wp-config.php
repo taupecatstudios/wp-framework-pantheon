@@ -131,12 +131,6 @@ if ( ( isset( $_SERVER['PANTHEON_ENVIRONMENT'] ) ) && ( php_sapi_name() != 'cli'
 
 	if ( ( $primary_domain !== $_SERVER['HTTP_HOST'] ) || ( ! isset( $_SERVER['HTTP_X_SSL'] ) ) || ( 'ON' !== $_SERVER['HTTP_X_SSL'] ) ) {
 
-		/** Name transaction "redirect" in New Relic for improved reporting (optional) */
-		if ( extension_loaded( 'newrelic' ) ) {
-
-			newrelic_name_transaction( 'redirect' );
-		}
-
 		header( 'HTTP/1.0 301 Moved Permanently' );
 		header( 'Location: ' . $base_url . $_SERVER['REQUEST_URI'] );
 		exit();
