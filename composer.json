@@ -83,7 +83,7 @@
     "wpackagist-plugin/akismet": "*",
     "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/debug-bar": "*",
-    "wpackagist-plugin/iq-block-country": "1.1.51",
+    "wpackagist-plugin/iq-block-country": "1.2.*",
     "wpackagist-plugin/limit-login-attempts": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
     "wpackagist-plugin/pantheon-hud": "*",
