@@ -122,6 +122,7 @@ if ( ( isset( $_SERVER['PANTHEON_ENVIRONMENT'] ) ) && ( php_sapi_name() != 'cli'
 
 		/** Redirect to HTTPS on every Pantheon environment */
 		$primary_domain = $_ENV['PANTHEON_ENVIRONMENT'] . '-##PROJECT##.pantheonsite.io';
+		$_SERVER['HTTPS'] = 'on';
 	}
 
 	$base_url = 'https://' . $primary_domain;
