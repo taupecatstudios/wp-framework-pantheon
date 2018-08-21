@@ -4,49 +4,8 @@
   "type": "project",
   "repositories": [
     {
-      "type": "package",
-      "package": {
-        "name": "deliciousbrains/wp-migrate-db-pro",
-        "type": "wordpress-plugin",
-        "version": "1.8.1",
-        "dist": {
-          "type": "zip",
-          "url": "https://deliciousbrains.com/dl/wp-migrate-db-pro-latest.zip?licence_key=##WP_MIGRATE_DB_PRO_LICENSE##&site_url=composer-test.dev"
-        },
-        "require": {
-          "composer/installers": "v1.0.7"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "deliciousbrains/wp-migrate-db-pro-media-files",
-        "type": "wordpress-plugin",
-        "version": "1.4.9",
-        "dist": {
-          "type": "zip",
-          "url": "https://deliciousbrains.com/dl/wp-migrate-db-pro-media-files-latest.zip?licence_key=##WP_MIGRATE_DB_PRO_LICENSE##&site_url=composer-test.dev"
-        },
-        "require": {
-          "composer/installers": "v1.0.7"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "deliciousbrains/wp-migrate-db-pro-cli",
-        "type": "wordpress-plugin",
-        "version": "1.3.2",
-        "dist": {
-          "type": "zip",
-          "url": "https://deliciousbrains.com/dl/wp-migrate-db-pro-cli-latest.zip?licence_key=##WP_MIGRATE_DB_PRO_LICENSE##&site_url=composer-test.dev"
-        },
-        "require": {
-          "composer/installers": "v1.0.7"
-        }
-      }
+      "type": "composer",
+      "url": "https://composer.deliciousbrains.com/##WP_MIGRATE_DB_PRO_LICENSE##"
     },
     {
       "type": "package",
@@ -76,9 +35,9 @@
   "require": {
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
 
-    "deliciousbrains/wp-migrate-db-pro": "*",
-    "deliciousbrains/wp-migrate-db-pro-cli": "*",
-    "deliciousbrains/wp-migrate-db-pro-media-files": "*",
+    "deliciousbrains-plugin/wp-migrate-db-pro": "*",
+    "deliciousbrains-plugin/wp-migrate-db-pro-cli": "*",
+    "deliciousbrains-plugin/wp-migrate-db-pro-media-files": "*",
 
     "wpackagist-plugin/akismet": "*",
     "wpackagist-plugin/classic-editor": "*",
