@@ -43,6 +43,8 @@
     "wpackagist-plugin/akismet": "*",
     "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/debug-bar": "*",
+    "wpackagist-plugin/debug-bar": "*",
+    "wpackagist-plugin/google-analytics-for-wordpress": "*",
     "wpackagist-plugin/iq-block-country": "1.2.*",
     "wpackagist-plugin/limit-login-attempts": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
