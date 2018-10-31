@@ -11,7 +11,7 @@
       "type": "package",
       "package": {
         "name": "advanced-custom-fields/advanced-custom-fields-pro",
-        "version": "5.7.6",
+        "version": "5.7.7",
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
@@ -43,8 +43,8 @@
     "wpackagist-plugin/akismet": "*",
     "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/debug-bar": "*",
-    "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/google-analytics-for-wordpress": "*",
+    "wpackagist-plugin/gutenberg": "*",
     "wpackagist-plugin/iq-block-country": "1.2.*",
     "wpackagist-plugin/limit-login-attempts": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
