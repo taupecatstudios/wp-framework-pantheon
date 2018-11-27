@@ -4,7 +4,6 @@
 
 aws --profile taupecatstudios s3 cp s3://taupecatstudios/taupecat.pem ./
 aws --profile taupecatstudios s3 cp s3://taupecatstudios/taupecat.key ./
-aws --profile taupecatstudios s3 cp s3://taupecatstudios/licenses.bash ./
 aws --profile taupecatstudios s3 cp s3://taupecatstudios/.env ../
 aws --profile taupecatstudios s3 cp s3://taupecatstudios/prepare-commit-msg ../.git/hooks/
 chmod +x ../.git/hooks/prepare-commit-msg
@@ -12,7 +11,6 @@ chmod +x ../.git/hooks/prepare-commit-msg
 # Go through the files that have variables that need replacing and, well, replace them.
 
 source variables.bash
-source licenses.bash
 
 sed -i '' -e "s/##URL##/$URL/g"                                                 ./https.bash
 
@@ -32,7 +30,7 @@ sed -i '' -e "s/##DESCRIPTION##/$DESCRIPTION/g"                                 
 
 sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../composer.json
 sed -i '' -e "s/##DESCRIPTION##/$DESCRIPTION/g"                                 ../composer.json
-sed -i '' -e "s/##WP_MIGRATE_DB_PRO_LICENSE##/$WP_MIGRATE_DB_PRO_LICENSE/g"     ../composer.json
+sed -i '' -e "s/##WP_MIGRATE_DB_PRO##/$WP_MIGRATE_DB_PRO/g"                     ../composer.json
 sed -i '' -e "s/##HOSTNAME##/$HOSTNAME/g"                                       ../composer.json
 
 sed -i '' -e "s/##TABLE_PREFIX##/$TABLE_PREFIX/g"                               ../src/wp-config-local.php
@@ -49,8 +47,10 @@ sed -i '' -e "s/##PROJECT_NAME##/$PROJECT_NAME/g"                               
 mv ../src/plugin/wp-framework.php                                               ../src/plugin/$PROJECT.php
 
 # Underscores
-find ../src -type f -exec sed -i '' -e "s/\'_s\'/$TEXT_DOMAIN/g" {} \;
-find ../src -type f -exec sed -i '' -e "s/_s_/$FUNCTION_NAMES/g" {} \;
-find ../src -type f -exec sed -i '' -e "s/Text Domain: _s/$CSS/g" {} \;
-find ../src -type f -exec sed -i '' -e "s/ _s/$DOCBLOCKS/g" {} \;
-find ../src -type f -exec sed -i '' -e "s/_s-/$PREFIXED_HANDLES/g" {} \;
+find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/\'_s\'/$TEXT_DOMAIN/g" {} \;
+find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/_s_/$FUNCTION_NAMES/g" {} \;
+find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/Text Domain: _s/$CSS/g" {} \;
+find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/ _s/$DOCBLOCKS/g" {} \;
+find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/_s-/$PREFIXED_HANDLES/g" {} \;
+
+mv ../src/sass/style.scss                                                       ../src/sass/$PROJECT.scss
