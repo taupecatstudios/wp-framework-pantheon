@@ -47,3 +47,10 @@ sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         
 sed -i '' -e "s/##PROJECT_NAME##/$PROJECT_NAME/g"                               ../src/mu-plugin.php
 
 mv ../src/plugin/wp-framework.php                                               ../src/plugin/$PROJECT.php
+
+# Underscores
+sed -i '' -e "s/\'_s\'/$TEXT_DOMAIN/g"                                          ../src/*
+sed -i '' -e "s/_s_/$FUNCTION_NAMES/g"                                          ../src/*
+sed -i '' -e "s/Text Domain: _s/$CSS/g"                                         ../src/*
+sed -i '' -e "s/ _s/$DOCBLOCKS/g"                                               ../src/*
+sed -i '' -e "s/_s-/$PREFIXED_HANDLES/g"                                        ../src/*
