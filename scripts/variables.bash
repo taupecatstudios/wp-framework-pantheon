@@ -8,3 +8,10 @@ DESCRIPTION="The foundation for WordPress projects."
 HOSTNAME="$PROJECT-site"
 URL="$PROJECT.local"
 PRODUCTION_DOMAIN=""
+
+# Underscores variables
+TEXT_DOMAIN="'wpframework'" # With single quotes
+FUNCTION_NAMES="wpframework_"
+CSS="Text Domain: wpframework"
+DOCBLOCKS=" wpframework"
+PREFIXED_HANDLES="wpframework-"
