@@ -3,9 +3,10 @@
 @include breakpoint-set( 'to ems', true );
 
 $breakpoints: (
-	'sm':		320px,
-	'md':		768px,
-	'lg':		1024px
+	'sm': 576px,
+	'md': 768px,
+	'lg': 992px,
+	'xl': 1200px,
 );
 
 
