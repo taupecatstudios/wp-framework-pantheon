@@ -1,6 +1,5 @@
 # Ignore the entire /web directory
 /web
-/web.orig
 
 # Avoid accidental modification of pantheon.upstream.yml in sites
 # created from this upstream
