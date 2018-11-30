@@ -4,25 +4,11 @@
   "description": "##DESCRIPTION##",
   "main": "gulpfile.babel.js",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "breakpoint-sass": "^2.7.1"
   },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
-  },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "autoprefixer": "^8.2.0",
-    "babel-cli": "^6.26.0",
+    "autoprefixer": "^9.3.1",
+    "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "babel-plugin-add-module-exports": "^1.0.0",
@@ -31,56 +17,53 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0",
-    "babelify": "^10.0.0",
-    "csswring": "^6.0.3",
+    "csswring": "^7.0.0",
     "del": "^3.0.0",
-    "eslint": "^5.7.0",
-    "gulp": "^3.9.1",
+    "eslint": "^5.9.0",
+    "fs-extra": "^7.0.1",
     "gulp-changed": "^3.2.0",
     "gulp-composer": "^0.4.5",
     "gulp-concat": "^2.6.1",
     "gulp-depend": "^1.1.0",
-    "gulp-deporder": "^1.1.0",
     "gulp-eslint": "^5.0.0",
-    "gulp-livereload": "^4.0.0",
+    "gulp-livereload": "^4.0.1",
     "gulp-load-plugins": "^1.5.0",
-    "gulp-phpcbf": "^0.1.2",
     "gulp-phpcs": "^2.2.0",
-    "gulp-plumber": "^1.2.0",
-    "gulp-postcss": "^7.0.1",
-    "gulp-refresh": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.2.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
     "gulp-sass-lint": "^1.4.0",
-    "gulp-shell": "^0.6.5",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.0",
-    "merge-stream": "^1.0.1",
+    "gulp-uglify": "^3.0.1",
+    "gulp4": "^4.0.2",
+    "minimist": "^1.2.0",
     "run-sequence": "^2.2.1",
-    "wrench": "^1.5.9"
+    "undertaker-forward-reference": "^1.0.2",
+    "vinyl-fs": "^3.0.3"
   },
   "scripts": {
-    "css": "gulp css",
-    "lint": "gulp lint",
-    "lint:css": "gulp css:lint",
-    "lint:php": "gulp php:lint",
-    "lint:js": "gulp js:eslint",
-    "dev": "gulp default",
-    "build": "gulp build",
-    "js": "gulp js"
+    "clean": "gulp4 clean",
+    "dev": "gulp4 default",
+    "build": "gulp4 build --production"
   },
   "author": "Taupecat Studios",
   "license": "UNLICENSED",
-  "repository": "",
+  "repository": "https://github.com/taupecatstudios/wp-framework-pantheon",
   "config": {
+    "project": "##PROJECT##",
     "paths": {
-      "sass": "src/sass",
-      "css": "web/wp-content/themes/##PROJECT##/css",
-      "theme": "web/wp-content/themes/##PROJECT##",
-      "js_src": "src/js",
-      "js_dest": "web/wp-content/themes/##PROJECT##/js",
       "node": "node_modules",
-      "web": "web"
+      "src": "src",
+      "src_css": "src/sass",
+      "src_js": "src/js",
+      "src_plugin": "src/plugin",
+      "src_theme": "src/theme",
+      "dest": "web",
+      "dest_css": "web/wp-content/themes/##PROJECT##/css",
+      "dest_js": "web/wp-content/themes/##PROJECT##/js",
+      "dest_plugin": "web/wp-content/mu-plugins/##PROJECT##",
+      "dest_theme": "web/wp-content/themes/##PROJECT##"
     }
   }
 }

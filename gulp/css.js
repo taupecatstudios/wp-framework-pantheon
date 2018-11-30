@@ -1,81 +1,29 @@
+/**
+ * css
+ *
+ * Lint and process Sass into CSS
+ */
+
 'use strict';
 
-const autoprefixer  = require( 'autoprefixer' );
-const csswring      = require( 'csswring' );
+import autoprefixer from 'autoprefixer';
+import csswring     from 'csswring';
 
-export default function( gulp, plugins, args, config, taskTarget ) {
+export default ( gulp4, plugins, args, paths ) => {
 
-	const paths = config.paths;
+	const tasks = [ 'css:unminified', 'css:minified' ];
 
-	gulp.task( 'css', [
-		'css:lint',
-		'css:unminified',
-		'css:minified'
-	]);
+	if ( ! args['production'] ) {
 
-	gulp.task( 'css:lint', function() {
+		tasks.push( 'css:lint' );
+	}
 
-		return gulp.src( paths.sass + '/**/*.scss' )
-			.pipe( plugins.sassLint({
-				options: {
-					formatter: 'stylish',
-					'merge-default-rules': true,
-				},
-				rules: {
-					'class-name-format': [
-						1,
-						{
-							convention: 'hyphenatedbem',
-						}
-					],
-					'force-element-nesting': 0,
-					'force-pseudo-nesting': 0,
-					'function-name-format': [
-						1,
-						{
-							'convention': 'snakecase',
-						}
-					],
-					'indentation': [
-						1,
-						{
-							size: 'tab',
-						}
-					],
-					'leading-zero': [
-						1,
-						{
-							'include': true,
-						}
-					],
-					'mixins-before-declarations': [
-						1,
-						{
-							exclude: [ 'bp', 'hover', 'breakpoint' ],
-						}
-					],
-					'nesting-depth': 0,
-					'no-css-comments': 0,
-					'no-qualifying-elements': 0,
-					'space-between-parens': [
-						1,
-						{
-							'include': true,
-						}
-					],
-				}
-			}))
-			.pipe( plugins.sassLint.format() )
-			.pipe( plugins.sassLint.failOnError() );
-	});
+	gulp4.task( 'css', gulp4.series( tasks ) );
 
 	// Unminified, sourcemapped
-	gulp.task( 'css:unminified', function() {
+	gulp4.task( 'css:unminified', () => {
 
-		var src   = paths.sass + '/**/*.scss',
-			dest  = paths.css;
-
-		gulp.src( src )
+		return gulp4.src( paths.src_css + '/**/*.scss' )
 			.pipe( plugins.plumber() )
 			.pipe( plugins.sourcemaps.init({
 				loadMaps: true
@@ -85,17 +33,14 @@ export default function( gulp, plugins, args, config, taskTarget ) {
 				autoprefixer()
 			]))
 			.pipe( plugins.sourcemaps.write( './' ) )
-			.pipe( gulp.dest( dest ) )
+			.pipe( gulp4.dest( paths.dest_css ) )
 			.pipe( plugins.livereload() );
 	});
 
 	// Minified, not sourcemapped
-	gulp.task( 'css:minified', function() {
+	gulp4.task( 'css:minified', () => {
 
-		var src   = paths.sass + '/**/*.scss',
-			dest  = paths.css;
-
-		return gulp.src( src )
+		return gulp4.src( paths.src_css + '/**/*.scss' )
 
 			.pipe( plugins.plumber() )
 			.pipe( plugins.sass() )
@@ -106,6 +51,20 @@ export default function( gulp, plugins, args, config, taskTarget ) {
 			.pipe( plugins.rename({
 				suffix: '.min'
 			}))
-			.pipe( gulp.dest(dest) );
+			.pipe( gulp4.dest( paths.dest_css ) );
+	});
+
+	gulp4.task( 'css:lint', () => {
+
+		return gulp4.src( paths.src_css + '/**/*.scss' )
+			.pipe( plugins.sassLint({
+				options: {
+					formatter: 'stylish',
+					'merge-default-rules': true,
+				},
+				configFile: '.sass-lint.json'
+			}))
+			.pipe( plugins.sassLint.format() )
+			.pipe( plugins.sassLint.failOnError() );
 	});
 };

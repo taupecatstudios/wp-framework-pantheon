@@ -1,12 +1,9 @@
-import sequence from 'run-sequence';
+/**
+ * Linting
+ */
 
-export default function( gulp, plugins, args, config, taskTarget ) {
+export default ( gulp4 ) => {
 
-	gulp.task( 'lint', [ 'css:lint', 'php:lint', 'js:eslint' ] );
-
-	gulp.task( 'lint:css', [ 'css:lint' ] );
-
-	gulp.task( 'lint:php', [ 'php:lint'] );
-
-	gulp.task( 'lint:js', [ 'js:eslint' ] );
+	// gulp4.task( 'lint', gulp4.parallel( [ 'css:lint', 'js:eslint' ] ) );
+	gulp4.task( 'lint', gulp4.parallel( [ 'css:lint', 'js:eslint', 'php:lint' ] ) );
 };

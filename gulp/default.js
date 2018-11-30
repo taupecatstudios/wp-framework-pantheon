@@ -1,19 +1,23 @@
-'use strict';
+/**
+ * Default (dev) gulp process
+ */
 
-import css       from './css';
-import sequence  from 'run-sequence';
+'use strict';
 
 /**
  * default
  */
-export default function( gulp, plugins, args, config, taskTarget, refreshLib ) {
+export default ( gulp4, plugins, args, paths ) => {
 
-	gulp.task( 'default', function( callback ) {
+	const tasks = [
+		'acf',
+		'css',
+		'js',
+		'plugin',
+		'theme',
+		'uploads',
+		'watch'
+	];
 
-		sequence(
-			[ 'css', 'js' ],
-			'watch',
-			callback
-		);
-	});
+	gulp4.task( 'default', gulp4.parallel( tasks ) );
 };

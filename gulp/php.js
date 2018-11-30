@@ -1,30 +1,22 @@
 'use strict';
 
-const phpcs   = require( 'gulp-phpcs' ),
-      phpcbf  = require( 'gulp-phpcbf' );
+export default ( gulp4, plugins, args, paths, project ) => {
 
-export default function( gulp, plugins, args, config, taskTarget ) {
+	gulp4.task( 'php:lint', () => {
 
-	const paths = config.paths;
-
-	gulp.task('php', [
-		'php:lint',
-	]);
-
-	gulp.task( 'php:lint', function() {
-
-		var src = [
-			paths.theme + '/**/*.php',
-		];
-		return gulp.src(src)
+		return gulp4.src([
+			paths.src_theme + '/**/*.php',
+			paths.src_plugin + '/**/*.php'
+		])
 			.pipe( plugins.plumber() )
-			// .pipe( phpcs({
-			// 	bin: 'vendor/squizlabs/php_codesniffer/bin/phpcs',
-			// 	standard: 'phpcodesniffer-idirect-standards',
+			// .pipe( plugins.phpcs({
+			// 	bin:             'vendor/squizlabs/php_codesniffer/bin/phpcs',
+			// 	standard:        'phpcodesniffer-' + project + '-standards',
 			// 	warningSeverity: 0,
-			// 	ignore: [ 'web/wp-content/themes/idirect/woocommerce' ],
 			// }))
-			// .pipe( phpcs.reporter('log') );
+			.pipe( plugins.phpcs.reporter( 'log' ) )
 			.pipe( plugins.livereload() );
 	});
+
+	gulp4.task( 'php', gulp4.series( 'php:lint' ) );
 }

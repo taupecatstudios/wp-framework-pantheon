@@ -1,42 +1,84 @@
-'use strict';
-
 /**
  * js
- * Process custom front-end and admin JavaScript into a single concatenated file,
- * and an uglified version for production.
+ *
+ * Lint and process JavaScript
  */
 
-export default function( gulp, plugins, args, config, taskTarget ) {
+'use strict';
 
-	const paths = config.paths;
+export default ( gulp4, plugins, args, paths, project ) => {
 
-	gulp.task( 'js', [ 'js:eslint' ], function() {
+	const tasks = [ 'js:front-end', 'js:admin' ];
 
-		var src = [
-				paths.node + '/waypoints/lib/jquery.waypoints.min.js',
-				paths.node + '/slick-carousel/slick/slick.min.js',
-				paths.node + '/select2/dist/js/select2.min.js',
-				paths.node + '/rallax.js/dist/rallax.js',
-				paths.web + '/wp-content/plugins/jetpack/modules/sharedaddy/sharing.js',
-				paths.js_src + '/**/*.js',
-			];
+	if ( ! args['production'] ) {
 
-		return gulp.src( src )
+		tasks.push( 'js:eslint' );
+	}
+
+	gulp4.task( 'js', gulp4.series( tasks ) );
+
+	// Front-end
+	gulp4.task( 'js:front-end', gulp4.series( [ 'js:front-end:unuglified', 'js:front-end:uglified' ] ) );
+
+	gulp4.task( 'js:front-end:unuglified', () => {
+
+		return gulp4.src( paths.src_js + '/front-end/**/*.js' )
 			.pipe( plugins.plumber() )
 			.pipe( plugins.depend() )
-			.pipe( plugins.concat( 'idirect.js' ) )
-			.pipe( gulp.dest( paths.js_dest ) )
-			.pipe( plugins.uglify() )
-			.pipe( plugins.rename( { suffix: '.min' } ) )
-			.pipe( gulp.dest( paths.js_dest ) )
+			.pipe( plugins.sourcemaps.init({
+				loadMaps: true
+			}))
+			.pipe( plugins.concat( project + '.js' ) )
+			.pipe( plugins.sourcemaps.write( './' ) )
+			.pipe( gulp4.dest( paths.dest_js ) )
 			.pipe( plugins.livereload() );
 	});
 
-	gulp.task( 'js:eslint', function() {
+	gulp4.task( 'js:front-end:uglified', () => {
 
-		var src = paths.js_src + '/**/*.js';
+		return gulp4.src( paths.src_js + '/front-end/**/*.js' )
+			.pipe( plugins.plumber() )
+			.pipe( plugins.depend() )
+			.pipe( plugins.concat( project + '.js' ) )
+			.pipe( plugins.uglify() )
+			.pipe( plugins.rename({ suffix: '.min' }) )
+			.pipe( gulp4.dest( paths.dest_js ) );
+	});
 
-		return gulp.src( src )
+	// Admin
+	gulp4.task( 'js:admin', gulp4.series( [ 'js:admin:unuglified', 'js:admin:uglified' ] ) );
+
+	gulp4.task( 'js:admin:unuglified', () => {
+
+		return gulp4.src( paths.src_js + '/admin/**/*.js' )
+			.pipe( plugins.plumber() )
+			.pipe( plugins.depend() )
+			.pipe( plugins.sourcemaps.init({
+				loadMaps: true
+			}))
+			.pipe( plugins.concat( project + '-admin.js' ) )
+			.pipe( plugins.sourcemaps.write( './' ) )
+			.pipe( gulp4.dest( paths.dest_js ) );
+	});
+
+	gulp4.task( 'js:admin:uglified', () => {
+
+		return gulp4.src( paths.src_js + '/admin/**/*.js' )
+			.pipe( plugins.plumber() )
+			.pipe( plugins.depend() )
+			.pipe( plugins.concat( project + '-admin.js' ) )
+			.pipe( plugins.uglify() )
+			.pipe( plugins.rename({ suffix: '.min' }) )
+			.pipe( gulp4.dest( paths.dest_js ) );
+	});
+
+	// ESLint
+	gulp4.task( 'js:eslint', () => {
+
+		return gulp4.src( [
+			paths.src_js + '/front-end/**/*.js',
+			paths.src_js + '/admin/**/*.js'
+		] )
 			.pipe( plugins.plumber() )
 			.pipe( plugins.eslint({
 				useEslintrc: true
