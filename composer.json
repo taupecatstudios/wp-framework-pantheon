@@ -60,12 +60,6 @@
     "wpackagist-plugin/wp-log-viewer": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
 
-    "wpackagist-theme/twentyten": "*",
-    "wpackagist-theme/twentyeleven": "*",
-    "wpackagist-theme/twentytwelve": "*",
-    "wpackagist-theme/twentythirteen": "*",
-    "wpackagist-theme/twentyfourteen": "*",
-    "wpackagist-theme/twentyfifteen": "*",
     "wpackagist-theme/twentysixteen": "*",
     "wpackagist-theme/twentyseventeen": "*",
     "wpackagist-theme/twentynineteen": "*"
@@ -79,10 +73,15 @@
   ],
   "minimum-stability": "stable",
   "extra": {
-    "wordpress-install-dir": "web/wp-core",
+    "wordpress-install-dir": "wp-core",
     "installer-paths": {
       "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
       "web/wp-content/themes/{$name}": ["type:wordpress-theme"]
     }
+  },
+  "scripts": {
+    "post-update-cmd": [
+      "rsync -rc --exclude=wp-content wp-core/ web/"
+    ]
   }
 }
