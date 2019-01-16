@@ -5,19 +5,20 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://composer.deliciousbrains.com/##WP_MIGRATE_DB_PRO_LICENSE##"
+      "url": "https://composer.deliciousbrains.com/##WP_MIGRATE_DB_PRO##"
     },
     {
       "type": "package",
       "package": {
         "name": "advanced-custom-fields/advanced-custom-fields-pro",
-        "version": "5.7.7",
+        "version": "5.7.8",
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
           "url": "https://connect.advancedcustomfields.com/index.php?p=pro&a=download"
         },
         "require": {
+          "johnpbloch/wordpress": "*",
           "philippbaschke/acf-pro-installer": "^1.0",
           "composer/installers": "^1.0"
         }
@@ -33,6 +34,10 @@
     }
   ],
   "require": {
+    "wp-coding-standards/wpcs": "*",
+
+    "johnpbloch/wordpress": "*",
+
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
 
     "deliciousbrains-plugin/wp-migrate-db-pro": "*",
@@ -43,7 +48,7 @@
     "wpackagist-plugin/akismet": "*",
     "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/debug-bar": "*",
-    "wpackagist-plugin/gutenberg": "*",
+    "wpackagist-plugin/google-analytics-for-wordpress": "*",
     "wpackagist-plugin/iq-block-country": "1.2.*",
     "wpackagist-plugin/limit-login-attempts": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
@@ -62,8 +67,8 @@
     "wpackagist-theme/twentyfourteen": "*",
     "wpackagist-theme/twentyfifteen": "*",
     "wpackagist-theme/twentysixteen": "*",
-    "wpackagist-theme/twentyseventeen": "*"
-
+    "wpackagist-theme/twentyseventeen": "*",
+    "wpackagist-theme/twentynineteen": "*"
   },
   "license": "MIT",
   "authors": [
@@ -74,6 +79,7 @@
   ],
   "minimum-stability": "stable",
   "extra": {
+    "wordpress-install-dir": "web/wp-core",
     "installer-paths": {
       "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
       "web/wp-content/themes/{$name}": ["type:wordpress-theme"]

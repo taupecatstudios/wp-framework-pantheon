@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true,
+	"es6": true,
+	"jquery": true
+  },
+  "rules": {
+    "indent": [2, "tab"],
+    "valid-jsdoc": 0,
+    "brace-style": [1, "1tbs"],
+    "no-constant-condition": 1,
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "func-names": 0,
+    "semi": [2, "always"],
+    "no-new": 0,
+    "new-parens": 2,
+    "no-ternary": 0,
+    "new-cap": 0,
+    "no-unused-vars": [1, {"vars": "local", "args": "none"}],
+    "one-var": 0,
+    "quotes": 0,
+    "space-infix-ops": 0,
+    "strict": 1,
+	"camelcase": [2, {"properties": "never"}],
+	"eqeqeq": 1
+  }
+}

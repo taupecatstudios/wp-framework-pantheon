@@ -1,0 +1,4 @@
+{
+  "presets": ["env"],
+  "plugins": [["add-module-exports"], ["transform-runtime"], ["transform-es2015-modules-umd"]]
+}
