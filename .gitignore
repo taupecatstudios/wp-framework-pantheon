@@ -17,6 +17,7 @@ pantheon.upstream.yml
 *.tar
 *.zip
 *.tgz
+!/web/wp-includes/js/tinymce/wp-tinymce.js.gz
 
 # Logs and databases #
 ######################
