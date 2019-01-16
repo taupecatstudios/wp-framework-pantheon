@@ -81,7 +81,7 @@
   },
   "scripts": {
     "post-update-cmd": [
-      "rsync -rc --del --exclude=wp-content --exclude=wp-config.php --exclude=wp-config-local.php wp-core/ web/"
+      "rsync -rc --del --exclude-from=.rsync-exclude wp-core/ web/"
     ]
   }
 }
