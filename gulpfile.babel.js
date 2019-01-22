@@ -6,7 +6,6 @@ import gulp4           from 'gulp4';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import minimist        from 'minimist';
 import pjson           from './package.json';
-import sequence        from 'run-sequence';
 
 // Load all gulp plugins based on their names
 // EX: gulp-copy -> copy
