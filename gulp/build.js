@@ -7,13 +7,13 @@
 
 'use strict';
 
-export default ( gulp4, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths ) => {
 
-	gulp4.task( 'build', gulp4.series( [ 'clean', 'composer' ], gulp4.parallel([
-		'acf',
-		'css',
-		'js',
-		'plugin',
-		'theme'
-	])));
+	gulp.task(
+		'build',
+		gulp.series(
+			[ 'clean', 'composer' ],
+			gulp.parallel( [ 'acf', 'css', 'js', 'plugin', 'theme' ] )
+		)
+	);
 };

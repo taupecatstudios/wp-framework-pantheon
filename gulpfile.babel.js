@@ -2,7 +2,7 @@
 
 import fs              from 'fs-extra';
 import fwdref          from 'undertaker-forward-reference';
-import gulp4           from 'gulp4';
+import gulp            from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import minimist        from 'minimist';
 import pjson           from './package.json';
@@ -26,7 +26,7 @@ let config      = Object.assign( {}, pjson.config, defaultNotification ),
     paths       = config.paths,
     args        = minimist( process.argv.slice( 2 ) );
 
-gulp4.registry( fwdref() );
+gulp.registry( fwdref() );
 
 // This will grab all js in the `gulp` directory
 // in order to load all gulp tasks.
@@ -36,5 +36,5 @@ fs.readdirSync( './gulp' ).filter( ( file ) => {
 
 }).map( function( file ) {
 
-	require( './gulp/' + file )( gulp4, plugins, args, paths, project );
+	require( './gulp/' + file )( gulp, plugins, args, paths, project );
 });

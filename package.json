@@ -7,7 +7,7 @@
     "breakpoint-sass": "^2.7.1"
   },
   "devDependencies": {
-    "autoprefixer": "^9.3.1",
+    "autoprefixer": "^9.4.4",
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
@@ -29,6 +29,7 @@
     "gulp-eslint": "^5.0.0",
     "gulp-livereload": "^4.0.1",
     "gulp-load-plugins": "^1.5.0",
+    "gulp-notify": "^3.2.0",
     "gulp-phpcs": "^2.2.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",
@@ -42,9 +43,11 @@
     "vinyl-fs": "^3.0.3"
   },
   "scripts": {
-    "clean": "gulp4 clean",
-    "dev": "gulp4 default",
-    "build": "gulp4 build --production"
+    "clean": "gulp clean",
+    "dev": "gulp default",
+    "build": "gulp build --production",
+    "css": "gulp css",
+    "lint:php": "gulp php:lint"
   },
   "author": "Taupecat Studios",
   "license": "UNLICENSED",

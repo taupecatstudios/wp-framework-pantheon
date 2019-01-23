@@ -9,21 +9,23 @@
 
 import vfs from 'vinyl-fs';
 
-export default ( gulp4, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths ) => {
 
-	gulp4.task( 'acf', () => {
+	gulp.task( 'acf', done => {
 
 		if ( args['production'] ) {
 
-			return gulp4
+			return gulp
 				.src( 'acf-json' )
-				.pipe( gulp4.dest( paths.dest_theme ) );
+				.pipe( gulp.dest( paths.dest_theme ) );
 
-		} else {
-
-			return gulp4
-				.src( 'acf-json' )
-				.pipe( vfs.symlink( paths.dest_theme, { relativeSymlinks: true } ) );
+			done();
 		}
+
+		return gulp
+			.src( 'acf-json' )
+			.pipe( vfs.symlink( paths.dest_theme, { relativeSymlinks: true } ) );
+
+		done();
 	});
 }

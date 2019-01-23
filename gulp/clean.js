@@ -8,9 +8,9 @@
 
 import del from 'del';
 
-export default ( gulp4, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths ) => {
 
-	gulp4.task( 'clean', () => {
+	gulp.task( 'clean', done => {
 
 		return del( paths.dest ).then( paths => {
 
@@ -19,5 +19,7 @@ export default ( gulp4, plugins, args, paths ) => {
 				console.log( 'Web directory deleted.' );
 			}
 		});
+
+		done();
 	});
 }

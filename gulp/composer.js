@@ -8,8 +8,10 @@
 
 export default ( gulp, plugins ) => {
 
-	gulp.task( 'composer', () => {
+	gulp.task( 'composer', done => {
 
 		return plugins.composer();
+
+		done();
 	});
 }

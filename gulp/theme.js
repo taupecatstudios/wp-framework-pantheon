@@ -6,13 +6,15 @@
 
 'use strict';
 
-export default ( gulp4, plugins, args, paths, project ) => {
+export default ( gulp, plugins, args, paths, project ) => {
 
-	gulp4.task( 'theme', () => {
+	gulp.task( 'theme', done => {
 
-		return gulp4.src( paths.src_theme + '/**/*' )
+		return gulp.src( paths.src_theme + '/**/*' )
 			.pipe( plugins.changed( paths.dest_theme ) )
-			.pipe( gulp4.dest( paths.dest_theme ) )
+			.pipe( gulp.dest( paths.dest_theme ) )
 			.pipe( plugins.livereload() );
+
+		done();
 	});
 }

@@ -6,11 +6,13 @@
 
 import vfs from 'vinyl-fs';
 
-export default ( gulp4, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths ) => {
 
-	gulp4.task( 'uploads', () => {
+	gulp.task( 'uploads', done => {
 
 		return vfs.src( 'uploads' )
 			.pipe( vfs.symlink( paths.dest + '/wp-content', { relativeSymlinks: true }));
+
+		done();
 	});
 }

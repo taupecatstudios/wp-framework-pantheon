@@ -25,18 +25,45 @@
       }
     },
     {
+      "type": "package",
+      "package": {
+        "name": "taupecatstudios/mu-plugins",
+        "version": "1.0",
+        "dist": {
+          "type": "zip",
+          "url": "http://composer.taupedev.com/mu-plugins.zip"
+        }
+      }
+    },
+    {
       "type": "composer",
       "url": "https://wpackagist.org"
     },
     {
       "type": "composer",
       "url": "https://packagist.org"
+    },
+    {
+      "type": "path",
+      "url": "./tests/phpcs",
+      "package": {
+        "name": "##PROJECT##/phpcodesniffer-##PROJECT##-standards",
+        "type": "phpcodesniffer-standard",
+        "require": {
+          "squizlabs/php_codesniffer": "*",
+          "dealerdirect/phpcodesniffer-composer-installer": "*",
+          "wp-coding-standards/wpcs": "*"
+        }
+      }
     }
   ],
   "require": {
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
     "wp-coding-standards/wpcs": "*",
+    "arcj/phpcodesniffer-##PROJECT##-standards": "*",
 
     "johnpbloch/wordpress": "*",
+    "taupecatstudios/mu-plugins": "*",
 
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
 
@@ -71,17 +98,28 @@
       "email": "trotton@taupecatstudios.com"
     }
   ],
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "secure-http": false
+  },
   "extra": {
-    "wordpress-install-dir": "wp-core",
+    "wordpress-install-dir": "vendor/wordpress",
     "installer-paths": {
       "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
       "web/wp-content/themes/{$name}": ["type:wordpress-theme"]
     }
   },
   "scripts": {
+    "wp-core": "rsync -rc --del --include-from .rsync-include --exclude-from .rsync-exclude vendor/wordpress/ web/",
+    "wp-muplugin": "rsync -rc vendor/taupecatstudios/mu-plugins/ web/wp-content/mu-plugins/",
     "post-update-cmd": [
-      "rsync -rc --del --exclude-from=.rsync-exclude wp-core/ web/"
+      "@wp-core",
+      "@wp-muplugin"
+    ],
+    "post-install-cmd": [
+      "@wp-core",
+      "@wp-muplugin"
     ]
   }
 }

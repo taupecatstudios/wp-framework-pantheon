@@ -1,5 +1,13 @@
 # Uploads
 /web/wp-content/uploads
+/uploads
+!/uploads/.gitkeep
+
+# ACF
+/web/**/acf-json
+
+# WordPress Local Config
+/web/wp-config-local.php
 
 # Avoid accidental modification of pantheon.upstream.yml in sites
 # created from this upstream
@@ -60,4 +68,3 @@ Thumbs.db
 /scripts/taupecat.pem
 /scripts/taupecat.key
 /scripts/licenses.bash
-/wp-core

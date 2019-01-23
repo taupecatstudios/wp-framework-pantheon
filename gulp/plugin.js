@@ -6,21 +6,25 @@
 
 'use strict';
 
-export default ( gulp4, plugins, args, paths, project ) => {
+export default ( gulp, plugins, args, paths, project ) => {
 
-	gulp4.task( 'plugin:plugin', () => {
+	gulp.task( 'plugin:plugin', done => {
 
-		return gulp4.src( paths.src_plugin + '/**/*' )
-			.pipe( gulp4.dest( paths.dest_plugin ) );
+		return gulp.src( paths.src_plugin + '/**/*' )
+			.pipe( gulp.dest( paths.dest_plugin ) );
+
+		done();
 	});
 
-	gulp4.task( 'plugin:loader', () => {
+	gulp.task( 'plugin:loader', done => {
 
-		return gulp4.src( paths.src + '/mu-plugin.php' )
+		return gulp.src( paths.src + '/mu-plugin.php' )
 			.pipe( plugins.rename( project + '.php' ) )
-			.pipe( gulp4.dest( paths.dest + '/wp-content/mu-plugins' ) )
+			.pipe( gulp.dest( paths.dest + '/wp-content/mu-plugins' ) )
 			.pipe( plugins.livereload() );
+
+		done();
 	});
 
-	gulp4.task( 'plugin', gulp4.series( [ 'plugin:plugin', 'plugin:loader' ] ) );
+	gulp.task( 'plugin', gulp.series( [ 'plugin:plugin', 'plugin:loader' ] ) );
 }

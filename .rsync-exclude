@@ -1,4 +1,7 @@
-wp-content
+wp-content/themes/*
+wp-content/plugins/*
+wp-content/mu-plugins
+wp-content/uploads
 wp-config.php
 wp-config-local.php
 composer.json

@@ -9,7 +9,7 @@
 import autoprefixer from 'autoprefixer';
 import csswring     from 'csswring';
 
-export default ( gulp4, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths ) => {
 
 	const tasks = [ 'css:unminified', 'css:minified' ];
 
@@ -18,30 +18,34 @@ export default ( gulp4, plugins, args, paths ) => {
 		tasks.push( 'css:lint' );
 	}
 
-	gulp4.task( 'css', gulp4.series( tasks ) );
+	gulp.task( 'css', gulp.series( tasks ) );
 
 	// Unminified, sourcemapped
-	gulp4.task( 'css:unminified', () => {
+	gulp.task( 'css:unminified', done => {
 
-		return gulp4.src( paths.src_css + '/**/*.scss' )
+		return gulp.src( paths.src_css + '/**/*.scss' )
 			.pipe( plugins.plumber() )
 			.pipe( plugins.sourcemaps.init({
 				loadMaps: true
 			}))
 			.pipe( plugins.sass() )
 			.pipe( plugins.postcss([
-				autoprefixer()
+				autoprefixer({
+					grid:     true,
+					browsers: [ '>1%' ],
+				})
 			]))
 			.pipe( plugins.sourcemaps.write( './' ) )
-			.pipe( gulp4.dest( paths.dest_css ) )
+			.pipe( gulp.dest( paths.dest_css ) )
 			.pipe( plugins.livereload() );
+
+		done();
 	});
 
 	// Minified, not sourcemapped
-	gulp4.task( 'css:minified', () => {
+	gulp.task( 'css:minified', done => {
 
-		return gulp4.src( paths.src_css + '/**/*.scss' )
-
+		return gulp.src( paths.src_css + '/**/*.scss' )
 			.pipe( plugins.plumber() )
 			.pipe( plugins.sass() )
 			.pipe( plugins.postcss([
@@ -51,20 +55,24 @@ export default ( gulp4, plugins, args, paths ) => {
 			.pipe( plugins.rename({
 				suffix: '.min'
 			}))
-			.pipe( gulp4.dest( paths.dest_css ) );
+			.pipe( gulp.dest( paths.dest_css ) );
+
+		done();
 	});
 
-	gulp4.task( 'css:lint', () => {
+	gulp.task( 'css:lint', done => {
 
-		return gulp4.src( paths.src_css + '/**/*.scss' )
+		return gulp.src( paths.src_css + '/**/*.scss' )
 			.pipe( plugins.sassLint({
 				options: {
 					formatter: 'stylish',
 					'merge-default-rules': true,
 				},
-				configFile: '.sass-lint.json'
+				configFile: '.sass-lint.yml'
 			}))
 			.pipe( plugins.sassLint.format() )
 			.pipe( plugins.sassLint.failOnError() );
+
+		done();
 	});
 };

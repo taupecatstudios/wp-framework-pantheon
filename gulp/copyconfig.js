@@ -5,9 +5,9 @@
 
 'use strict';
 
-export default ( gulp4, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths ) => {
 
-	gulp4.task( 'copy-config', () => {
+	gulp.task( 'copy-config', done => {
 
 		let configFiles = [];
 
@@ -18,7 +18,9 @@ export default ( gulp4, plugins, args, paths ) => {
 			configFiles.push( paths.src + '/wp-config-local.php' );
 		}
 
-		return gulp4.src( configFiles )
-			.pipe( gulp4.dest( paths.dest ) );
+		return gulp.src( configFiles )
+			.pipe( gulp.dest( paths.dest ) );
+
+		done();
 	});
 }

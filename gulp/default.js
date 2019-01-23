@@ -7,17 +7,19 @@
 /**
  * default
  */
-export default ( gulp4, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths ) => {
 
 	const tasks = [
 		'acf',
+		'copy-config',
 		'css',
 		'js',
 		'plugin',
 		'theme',
+		'php:lint',
 		'uploads',
 		'watch'
 	];
 
-	gulp4.task( 'default', gulp4.parallel( tasks ) );
+	gulp.task( 'default', gulp.series( 'composer', gulp.parallel( tasks ) ) );
 };
