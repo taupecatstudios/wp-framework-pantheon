@@ -60,7 +60,7 @@
   "require": {
     "dealerdirect/phpcodesniffer-composer-installer": "*",
     "wp-coding-standards/wpcs": "*",
-    "arcj/phpcodesniffer-##PROJECT##-standards": "*",
+    "##PROJECT##/phpcodesniffer-##PROJECT##-standards": "*",
 
     "johnpbloch/wordpress": "*",
     "taupecatstudios/mu-plugins": "*",
