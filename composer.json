@@ -31,7 +31,7 @@
         "version": "1.0",
         "dist": {
           "type": "zip",
-          "url": "http://composer.taupedev.com/mu-plugins.zip"
+          "url": "http://composer.taupecatstudios.dev/mu-plugins.zip"
         }
       }
     },
