@@ -5,7 +5,7 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://composer.deliciousbrains.com/##WP_MIGRATE_DB_PRO##"
+      "url": "https://composer.deliciousbrains.com/"
     },
     {
       "type": "package",
