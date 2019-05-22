@@ -1,3 +1,4 @@
 wp-content/index.php
 wp-content/plugins/index.php
 wp-content/themes/index.php
+wp-includes/sodium_compat/composer.json
