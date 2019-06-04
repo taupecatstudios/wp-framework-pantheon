@@ -70,7 +70,6 @@
     "deliciousbrains-plugin/wp-migrate-db-pro": "*",
     "deliciousbrains-plugin/wp-migrate-db-pro-cli": "*",
     "deliciousbrains-plugin/wp-migrate-db-pro-media-files": "*",
-    "deliciousbrains-plugin/wp-migrate-db-pro-theme-plugin-files": "*",
 
     "wpackagist-plugin/akismet": "*",
     "wpackagist-plugin/classic-editor": "*",
@@ -84,7 +83,6 @@
     "wpackagist-plugin/sucuri-scanner": "*",
     "wpackagist-plugin/theme-check": "*",
     "wpackagist-plugin/worker": "*",
-    "wpackagist-plugin/wp-log-viewer": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
 
     "wpackagist-theme/twentysixteen": "*",
