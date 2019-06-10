@@ -28,7 +28,7 @@
       "type": "package",
       "package": {
         "name": "taupecatstudios/mu-plugins",
-        "version": "1.3",
+        "version": "1.4",
         "dist": {
           "type": "zip",
           "url": "http://composer.taupecatstudios.dev/mu-plugins.zip"
