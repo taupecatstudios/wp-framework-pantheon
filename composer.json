@@ -57,7 +57,7 @@
     "##PROJECT##/phpcodesniffer-##PROJECT##-standards": "*",
 
     "johnpbloch/wordpress": "*",
-    "taupecatstudios/mu-plugins": "*",
+    "taupecatstudios/mu-plugins": "^1.5",
 
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
 
@@ -78,6 +78,7 @@
     "wpackagist-plugin/theme-check": "*",
     "wpackagist-plugin/worker": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
+    "wpackagist-plugin/wp-smushit": "^3.2"
 
     "wpackagist-theme/twentysixteen": "*",
     "wpackagist-theme/twentyseventeen": "*",
