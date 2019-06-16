@@ -3,6 +3,7 @@
 echo "Provisioning"
 
 DB_NAME="##DB_NAME##"
+export DEBIAN_FRONTEND=noninteractive
 
 echo "OS Updates"
 apt-get update
