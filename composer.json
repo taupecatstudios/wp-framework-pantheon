@@ -25,15 +25,9 @@
       }
     },
     {
-      "type": "package",
-      "package": {
-        "name": "taupecatstudios/mu-plugins",
-        "version": "1.4",
-        "dist": {
-          "type": "zip",
-          "url": "http://composer.taupecatstudios.dev/mu-plugins.zip"
-        }
-      }
+      "type": "git",
+      "url": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/mu-plugins",
+      "name": "taupecatstudios/mu-plugins"
     },
     {
       "type": "composer",
@@ -110,7 +104,7 @@
   },
   "scripts": {
     "wp-core": "rsync -rc --del --include-from .rsync-include --exclude-from .rsync-exclude vendor/wordpress/ web/",
-    "wp-muplugin": "rsync -rc vendor/taupecatstudios/mu-plugins/ web/wp-content/mu-plugins/",
+    "wp-muplugin": "rsync -rc --exclude=composer.json --exclude=.git vendor/taupecatstudios/mu-plugins/ web/wp-content/mu-plugins/",
     "post-update-cmd": [
       "@wp-core",
       "@wp-muplugin"
