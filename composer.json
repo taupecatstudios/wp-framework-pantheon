@@ -78,7 +78,7 @@
     "wpackagist-plugin/theme-check": "*",
     "wpackagist-plugin/worker": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
-    "wpackagist-plugin/wp-smushit": "^3.2"
+    "wpackagist-plugin/wp-smushit": "^3.2",
 
     "wpackagist-theme/twentysixteen": "*",
     "wpackagist-theme/twentyseventeen": "*",
