@@ -69,3 +69,4 @@ Thumbs.db
 /scripts/taupecat.key
 /scripts/licenses.bash
 /auth.json
+*.bak
