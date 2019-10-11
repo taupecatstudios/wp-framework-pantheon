@@ -3,19 +3,17 @@
  * Watch files that require a task to act on them.
  */
 
-'use strict';
+export default ( gulp, plugins, args, paths, project ) => {
 
-export default ( gulp, plugins, args, paths ) => {
+	gulp.task( 'watch', ( done ) => {
 
-	gulp.task( 'watch', function() {
+		plugins.livereload.listen();
 
-		plugins.livereload.listen({
-			host: null
-		});
+		gulp.watch( paths.srcSass   + '/**/*.scss', gulp.parallel( 'css' ) );
+		gulp.watch( paths.srcJs     + '/**/*.js',   gulp.parallel( 'js' ) );
+		gulp.watch( paths.srcTheme  + '/**/*.php',  gulp.parallel( [ 'theme', 'phpcs:theme' ] ) );
+		gulp.watch( paths.srcPlugin + '/**/*.php',  gulp.parallel( [ 'plugin:plugin', 'phpcs:plugin' ] ) );
 
-		gulp.watch( paths.src_css    + '/**/*.scss', gulp.parallel( 'css' ) );
-		gulp.watch( paths.src_js     + '/**/*.js',   gulp.parallel( 'js' ) );
-		gulp.watch( paths.src_theme  + '/**/*.php',  gulp.parallel ( [ 'theme', 'php' ] ) );
-		gulp.watch( paths.src_plugin + '/**/*.php',  gulp.parallel( [ 'plugin', 'php' ] ) );
+		done();
 	});
 };

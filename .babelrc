@@ -1,4 +1,4 @@
 {
-  "presets": ["env"],
-  "plugins": [["add-module-exports"], ["transform-runtime"], ["transform-es2015-modules-umd"]]
+  "presets": ["@babel/env"],
+  "plugins": [["add-module-exports"], ["@babel/transform-runtime"], ["@babel/transform-modules-umd"]]
 }

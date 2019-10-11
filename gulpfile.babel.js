@@ -1,5 +1,6 @@
 'use strict';
 
+import appRoot         from 'app-root-path';
 import fs              from 'fs-extra';
 import fwdref          from 'undertaker-forward-reference';
 import gulp            from 'gulp';
@@ -21,10 +22,23 @@ const defaultNotification = function( err ) {
 	};
 };
 
-let config      = Object.assign( {}, pjson.config, defaultNotification ),
-    project     = config.project,
-    paths       = config.paths,
-    args        = minimist( process.argv.slice( 2 ) );
+const config  = Object.assign( {}, pjson.config, defaultNotification ),
+      project = config.project,
+      paths   = { base: appRoot.path },
+      args    = minimist( process.argv.slice( 2 ) );
+
+// Fill out our paths object.
+paths.node      = paths.base + '/node_modules';
+paths.src       = paths.base + '/src';
+paths.srcSass   = paths.src + '/sass';
+paths.srcJs     = paths.src + '/js';
+paths.srcPlugin = paths.src + '/plugin';
+paths.srcTheme  = paths.src + '/theme';
+paths.web       = paths.base + '/web';
+paths.webTheme  = paths.web + '/wp-content/themes/' + config.project;
+paths.webCss    = paths.webTheme + '/css';
+paths.webJs     = paths.webTheme + '/js';
+paths.webPlugin = paths.web + '/wp-content/mu-plugins/' + config.project;
 
 gulp.registry( fwdref() );
 

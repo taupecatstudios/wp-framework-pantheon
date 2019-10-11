@@ -7,71 +7,52 @@
 'use strict';
 
 import autoprefixer from 'autoprefixer';
-import csswring     from 'csswring';
+import cssnano      from 'cssnano';
+import Fiber        from 'fibers';
 
-export default ( gulp, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths, project ) => {
 
-	const tasks = [ 'css:unminified', 'css:minified' ];
+	plugins.sass.compiler = require( 'sass' );
 
-	if ( ! args['production'] ) {
+	const src = [
+		paths.srcSass + '/**/*.scss',
+		'!' + paths.srcSass + '/**/woocommerce/woocommerce.scss',
+	];
 
-		tasks.push( 'css:lint' );
-	}
+	const tasks = [ 'css:compile', 'css:lint' ];
 
-	gulp.task( 'css', gulp.series( tasks ) );
+	gulp.task( 'css', gulp.parallel( tasks ) );
 
-	// Unminified, sourcemapped
-	gulp.task( 'css:unminified', done => {
+	gulp.task( 'css:compile', ( done ) => {
 
-		return gulp.src( paths.src_css + '/**/*.scss' )
+		gulp.src( src )
 			.pipe( plugins.plumber() )
-			.pipe( plugins.sourcemaps.init({
-				loadMaps: true
-			}))
-			.pipe( plugins.sass() )
+			.pipe( plugins.sourcemaps.init( { loadMaps: true } ) )
+			.pipe( plugins.sass( { fiber: Fiber } ).on( 'error', plugins.sass.logError ) )
 			.pipe( plugins.postcss([
-				autoprefixer({
-					grid:     true,
-					browsers: [ '>1%' ],
-				})
-			]))
-			.pipe( plugins.sourcemaps.write( './' ) )
-			.pipe( gulp.dest( paths.dest_css ) )
-			.pipe( plugins.livereload() );
-
-		done();
-	});
-
-	// Minified, not sourcemapped
-	gulp.task( 'css:minified', done => {
-
-		return gulp.src( paths.src_css + '/**/*.scss' )
-			.pipe( plugins.plumber() )
-			.pipe( plugins.sass() )
-			.pipe( plugins.postcss([
-				autoprefixer(),
-				csswring()
+				autoprefixer( { grid: true } ),
+				cssnano()
 			]))
 			.pipe( plugins.rename({
+				basename: project,
 				suffix: '.min'
 			}))
-			.pipe( gulp.dest( paths.dest_css ) );
+			.pipe( plugins.sourcemaps.write( './' ) )
+			.pipe( gulp.dest( paths.webCss ) )
+			.pipe( plugins.livereload() )
+		;
 
 		done();
 	});
 
-	gulp.task( 'css:lint', done => {
+	gulp.task( 'css:lint', ( done ) => {
 
-		return gulp.src( paths.src_css + '/**/*.scss' )
-			.pipe( plugins.sassLint({
-				options: {
-					formatter: 'stylish',
-					'merge-default-rules': true,
-				},
-				configFile: '.sass-lint.yml'
+		gulp.src( src )
+			.pipe( plugins.stylelint({
+				reporters: [ { formatter: 'string', console: true } ],
+				failAfterError: false
 			}))
-			.pipe( plugins.sassLint.format() )
-			.pipe( plugins.sassLint.failOnError() );
+		;
 
 		done();
 	});

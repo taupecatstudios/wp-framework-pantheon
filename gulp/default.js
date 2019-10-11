@@ -2,24 +2,9 @@
  * Default (dev) gulp process
  */
 
-'use strict';
+export default ( gulp, plugins, args, paths, project ) => {
 
-/**
- * default
- */
-export default ( gulp, plugins, args, paths ) => {
-
-	const tasks = [
-		'acf',
-		'copy-config',
-		'css',
-		'js',
-		'plugin',
-		'theme',
-		'php:lint',
-		'uploads',
-		'watch'
-	];
+	const tasks = [ 'acf-json', 'copy-files', 'css', 'js', 'plugin', 'theme', 'uploads', 'watch' ];
 
 	gulp.task( 'default', gulp.series( 'composer', gulp.parallel( tasks ) ) );
 };

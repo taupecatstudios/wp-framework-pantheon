@@ -4,27 +4,28 @@
  * Build the project-specific plugin.
  */
 
-'use strict';
-
 export default ( gulp, plugins, args, paths, project ) => {
 
-	gulp.task( 'plugin:plugin', done => {
+	gulp.task( 'plugin', gulp.parallel( [ 'plugin:plugin', 'plugin:loader' ] ) );
 
-		return gulp.src( paths.src_plugin + '/**/*' )
-			.pipe( gulp.dest( paths.dest_plugin ) );
+	gulp.task( 'plugin:plugin', ( done ) => {
+
+		gulp.src( paths.srcPlugin + '/**/*' )
+			.pipe( plugins.changed( paths.webPlugin ) )
+			.pipe( gulp.dest( paths.webPlugin ) )
+			.pipe( plugins.livereload() )
+		;
 
 		done();
 	});
 
-	gulp.task( 'plugin:loader', done => {
+	gulp.task( 'plugin:loader', ( done ) => {
 
-		return gulp.src( paths.src + '/mu-plugin.php' )
+		gulp.src( paths.src + '/mu-plugin.php' )
 			.pipe( plugins.rename( project + '.php' ) )
-			.pipe( gulp.dest( paths.dest + '/wp-content/mu-plugins' ) )
-			.pipe( plugins.livereload() );
+			.pipe( gulp.dest( paths.web + '/wp-content/mu-plugins' ) )
+		;
 
 		done();
 	});
-
-	gulp.task( 'plugin', gulp.series( [ 'plugin:plugin', 'plugin:loader' ] ) );
 }

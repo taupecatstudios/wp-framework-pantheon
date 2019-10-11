@@ -5,6 +5,14 @@
   "repositories": [
     {
       "type": "composer",
+      "url": "https://packagist.org"
+    },
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "composer",
       "url": "https://composer.deliciousbrains.com/"
     },
     {
@@ -28,34 +36,9 @@
       "type": "git",
       "url": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/mu-plugins",
       "name": "taupecatstudios/mu-plugins"
-    },
-    {
-      "type": "composer",
-      "url": "https://wpackagist.org"
-    },
-    {
-      "type": "composer",
-      "url": "https://packagist.org"
-    },
-    {
-      "type": "path",
-      "url": "./tests/phpcs",
-      "package": {
-        "name": "##PROJECT##/phpcodesniffer-##PROJECT##-standards",
-        "type": "phpcodesniffer-standard",
-        "require": {
-          "squizlabs/php_codesniffer": "*",
-          "dealerdirect/phpcodesniffer-composer-installer": "*",
-          "wp-coding-standards/wpcs": "*"
-        }
-      }
     }
   ],
   "require": {
-    "dealerdirect/phpcodesniffer-composer-installer": "*",
-    "wp-coding-standards/wpcs": "*",
-    "##PROJECT##/phpcodesniffer-##PROJECT##-standards": "*",
-
     "johnpbloch/wordpress": "*",
     "taupecatstudios/mu-plugins": "^1.5",
 
@@ -69,7 +52,7 @@
     "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/google-analytics-for-wordpress": "*",
-    "wpackagist-plugin/iq-block-country": "1.2.*",
+    "wpackagist-plugin/iq-block-country": "*",
     "wpackagist-plugin/limit-login-attempts": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
     "wpackagist-plugin/pantheon-hud": "*",
@@ -78,7 +61,7 @@
     "wpackagist-plugin/theme-check": "*",
     "wpackagist-plugin/worker": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
-    "wpackagist-plugin/wp-smushit": "^3.2",
+    "wpackagist-plugin/wp-smushit": "*",
 
     "wpackagist-theme/twentysixteen": "*",
     "wpackagist-theme/twentyseventeen": "*",

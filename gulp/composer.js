@@ -4,13 +4,11 @@
  * Run composer install.
  */
 
-'use strict';
+export default ( gulp, plugins, args, paths, project ) => {
 
-export default ( gulp, plugins ) => {
+	gulp.task( 'composer', ( done ) => {
 
-	gulp.task( 'composer', done => {
-
-		return plugins.composer();
+		plugins.composer();
 
 		done();
 	});

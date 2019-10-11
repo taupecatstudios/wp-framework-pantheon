@@ -4,19 +4,17 @@
  * Remove the /web directory.
  */
 
-'use strict';
-
 import del from 'del';
 
-export default ( gulp, plugins, args, paths ) => {
+export default ( gulp, plugins, args, paths, project ) => {
 
-	gulp.task( 'clean', done => {
+	gulp.task( 'clean', ( done ) => {
 
-		return del( paths.dest ).then( paths => {
+		del( paths.web ).then( ( deletedPaths ) => {
 
-			if ( 0 < paths.length ) {
+			if ( 0 < deletedPaths.length ) {
 
-				console.log( 'Web directory deleted.' );
+				console.log( deletedPaths[0] + ' deleted.' );
 			}
 		});
 
