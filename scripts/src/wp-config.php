@@ -15,9 +15,9 @@
  * keep your config separate, we recommend using a 'wp-config-local.php' file,
  * which you should also make sure you .gitignore.
  */
-if ( ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php') ) && ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) ) {
+if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) {
 
-	require_once( dirname(__FILE__) . '/wp-config-local.php' );
+	require_once( __DIR__ . '/wp-config-local.php' );
 
 /**
  * Pantheon platform settings. Everything you need should already be set.
@@ -54,7 +54,7 @@ if ( ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php') ) && ( ! isset
 		 * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
 		 *
 		 * Pantheon sets these values for you also. If you want to shuffle them you
-		 * must contact support: https://pantheon.io/docs/getting-support 
+		 * must contact support: https://pantheon.io/docs/getting-support
 		 *
 		 * @since 2.6.0
 		 */
@@ -69,15 +69,46 @@ if ( ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php') ) && ( ! isset
 		/**#@-*/
 
 		/** A couple extra tweaks to help things run well on Pantheon. **/
-		// Don't show deprecations; useful under PHP 5.5
-		error_reporting( E_ALL ^ E_DEPRECATED );
 
-		// Force the use of a safe temp directory when in a container
-		if ( defined( 'PANTHEON_BINDING' ) ) {
-			define( 'WP_TEMP_DIR', sprintf( '/srv/bindings/%s/tmp', PANTHEON_BINDING ) );
+		/** Always-on HTTPS */
+		if ( 'cli' !== php_sapi_name() ) {
+
+			switch ( $_ENV['PANTHEON_ENVIRONMENT'] ) {
+
+				case 'live':
+					$primary_domain = '##PRODUCTION_DOMAIN##';
+					break;
+
+				case 'local':
+					$primary_domain = '##PROJECT##.pantheonlocal.com';
+					break;
+
+				default:
+					$primary_domain = $_ENV['PANTHEON_ENVIRONMENT'] . '-##PROJECT##.pantheonsite.io';
+					break;
+			}
+
+			$_SERVER['HTTPS'] = 'on';
+			$base_url = 'https://' . $primary_domain;
+
+			if ( ( $primary_domain !== $_SERVER['HTTP_HOST'] ) || ( ! isset( $_SERVER['HTTP_X_SSL'] ) ) || ( 'ON' !== $_SERVER['HTTP_X_SSL'] ) ) {
+
+				header( 'HTTP/1.0 301 Moved Permanently' );
+				header( 'Location: ' . $base_url . $_SERVER['REQUEST_URI'] );
+				exit();
+			}
+
+			define( 'WP_HOME', $base_url );
+			define( 'WP_SITEURL', WP_HOME );
 		}
 
-		// Make sure Jetpack is always in debug mode in non-live environments
+		/** Don't show deprecations; useful under PHP 5.5 */
+		error_reporting( E_ALL ^ E_DEPRECATED );
+
+		/** Define appropriate location for default tmp directory on Pantheon */
+		define( 'WP_TEMP_DIR', $_SERVER['HOME'] . '/tmp' );
+
+		/** Make sure Jetpack is always in debug mode in non-live environments */
 		if ( ( 'live' !== $_ENV['PANTHEON_ENVIRONMENT'] ) && ( ! defined( 'JETPACK_DEV_DEBUG' ) ) ) {
 			define( 'JETPACK_DEV_DEBUG', true );
 		}
@@ -104,37 +135,6 @@ if ( ( file_exists( dirname( __FILE__ ) . '/wp-config-local.php') ) && ( ! isset
 		define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
 		define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
 		define( 'NONCE_SALT',       'put your unique phrase here' );
-
-	}
-
-}
-
-if ( ( isset( $_SERVER['PANTHEON_ENVIRONMENT'] ) ) && ( php_sapi_name() != 'cli' ) ) {
-
-	/** Redirect to https://$primary_domain/ in the Live environment */
-
-	if ( 'live' === $_ENV['PANTHEON_ENVIRONMENT'] ) {
-
-		/** Replace www.example.com with your registered domain name */
-		$primary_domain = '##PRODUCTION_DOMAIN##';
-
-	} else {
-
-		/** Redirect to HTTPS on every Pantheon environment */
-		$primary_domain = $_ENV['PANTHEON_ENVIRONMENT'] . '-##PROJECT##.pantheonsite.io';
-		$_SERVER['HTTPS'] = 'on';
-	}
-
-	$base_url = 'https://' . $primary_domain;
-
-	define( 'WP_HOME', $base_url );
-	define( 'WP_SITEURL', WP_HOME );
-
-	if ( ( $primary_domain !== $_SERVER['HTTP_HOST'] ) || ( ! isset( $_SERVER['HTTP_X_SSL'] ) ) || ( 'ON' !== $_SERVER['HTTP_X_SSL'] ) ) {
-
-		header( 'HTTP/1.0 301 Moved Permanently' );
-		header( 'Location: ' . $base_url . $_SERVER['REQUEST_URI'] );
-		exit();
 	}
 }
 
@@ -147,6 +147,7 @@ if ( ( isset( $_SERVER['PANTHEON_ENVIRONMENT'] ) ) && ( php_sapi_name() != 'cli'
  * prefix. Only numbers, letters, and underscores please!
  */
 if ( ! isset( $table_prefix ) ) {
+
 	$table_prefix = '##TABLE_PREFIX##';
 }
 
@@ -158,7 +159,10 @@ if ( ! isset( $table_prefix ) ) {
  * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
  * language support.
  */
-define( 'WPLANG', '' );
+if ( ! defined( 'WPLANG' ) ) {
+
+	define( 'WPLANG', '' );
+}
 
 /**
  * For developers: WordPress debugging mode.
@@ -171,29 +175,32 @@ define( 'WPLANG', '' );
  * "true" in dev, but false in test and live.
  */
 if ( ! defined( 'WP_DEBUG' ) ) {
+
 	define( 'WP_DEBUG', false );
 }
 
+/**
+ * When we are using WP_DEBUG, we want to write to a log instead of
+ * displaying errors on the screen.
+ */
 if ( WP_DEBUG ) {
 
 	define( 'WP_DEBUG_DISPLAY', false );
 	define( 'WP_DEBUG_LOG', true );
 
+	/** Jetpack should be in debug mode any time WP_DEBUG is true. */
 	if ( ! defined( 'JETPACK_DEV_DEBUG' ) ) {
 
 		define( 'JETPACK_DEV_DEBUG', true );
 	}
 }
 
-/** Miscellaneous */
-define( 'SUCURISCAN_HIDE_ADS', true );
-define( 'DISALLOW_FILE_EDIT', true );
-
 /* That's all, stop editing! Happy Pressing. */
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname(__FILE__) . '/' );
+
+	define( 'ABSPATH', __DIR__ . '/' );
 }
 
 /** Sets up WordPress vars and included files. */
