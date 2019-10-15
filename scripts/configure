@@ -1,57 +1,91 @@
-#!/bin/bash
+#!/usr/bin/env php
+<?php
 
-# Copy some stuff over
+namespace Configure;
 
-aws --profile taupecatstudios s3 cp s3://taupecatstudios/taupecat.pem ./
-aws --profile taupecatstudios s3 cp s3://taupecatstudios/taupecat.key ./
-aws --profile taupecatstudios s3 cp s3://taupecatstudios/.env ../
-aws --profile taupecatstudios s3 cp s3://taupecatstudios/auth.json ../
-aws --profile taupecatstudios s3 cp s3://taupecatstudios/prepare-commit-msg ../.git/hooks/
-chmod +x ../.git/hooks/prepare-commit-msg
+// Pull in the third-part (AWS, GitHub) SDKs.
+require '/Users/taupecat/.composer/vendor/autoload.php';
+use \Aws\S3\S3Client;
+use \Aws\Exception\AwsException;
 
-# Go through the files that have variables that need replacing and, well, replace them.
+// Establish the current directory as a constant.
+define( 'WORKING_DIR', __DIR__ . '/' );
 
-source variables.bash
+// Import project variables.
+require WORKING_DIR . 'variables.php';
 
-sed -i '' -e "s/##URL##/$URL/g"                                                 ./https.bash
+// Import helper functions.
+require WORKING_DIR . 'lib/functions.php';
 
-sed -i '' -e "s/##URL##/$URL/g"                                                 ./https.conf
+echo 'Clone the _s fork from Taupecat Studios\' GitHub account, and recursively remove the .git and .github directories.' . "\n";
 
-sed -i '' -e "s/##URL##/$URL/g"                                                 ./default.conf
+$src         = WORKING_DIR . '../src';
+$underscores = 'https://github.com/taupecatstudios/_s.git';
 
-sed -i '' -e "s/##DB_NAME##/$DB_NAME/g"                                         ./provision.sh
+if ( ! file_exists( $src ) ) {
 
-sed -i '' -e "s/##URL##/$URL/g"                                                 ../Vagrantfile
-sed -i '' -e "s/##HOSTNAME##/$HOSTNAME/g"                                       ../Vagrantfile
+	\Cz\Git\GitRepository::cloneRepository( $underscores, $src );
 
-sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../gulpfile.babel.js
+	removeDirectory( $src . '/.git' );
+	removeDirectory( $src . '/.github' );
+}
 
-sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../package.json
-sed -i '' -e "s/##DESCRIPTION##/$DESCRIPTION/g"                                 ../package.json
+echo 'Pull down the AWS-hosted stuff.' . "\n";
+$s3 = [
+	'client_info' => new \Aws\S3\S3Client([
+		'profile' => 'taupecatstudios',
+		'version' => 'latest',
+		'region'  => 'us-east-1',
+	]),
+	'files'       => [
+		'taupecat.pem'       => WORKING_DIR . 'taupecat.pem',
+		'taupecat.key'       => WORKING_DIR . 'taupecat.key',
+		'.env'               => WORKING_DIR . '../.env',
+		'auth.json'          => WORKING_DIR . '../auth.json',
+		'prepare-commit-msg' => WORKING_DIR . '../.git/hooks/prepare-commit-msg',
+	],
+];
 
-sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../composer.json
-sed -i '' -e "s/##DESCRIPTION##/$DESCRIPTION/g"                                 ../composer.json
-sed -i '' -e "s/##WP_MIGRATE_DB_PRO##/$WP_MIGRATE_DB_PRO/g"                     ../composer.json
-sed -i '' -e "s/##HOSTNAME##/$HOSTNAME/g"                                       ../composer.json
+copyFromS3( $s3 );
 
-sed -i '' -e "s/##TABLE_PREFIX##/$TABLE_PREFIX/g"                               ../src/wp-config-local.php
-sed -i '' -e "s/##URL##/$URL/g"                                                 ../src/wp-config-local.php
-sed -i '' -e "s/##DB_NAME##/$DB_NAME/g"                                         ../src/wp-config-local.php
+echo 'Go through the files that have variables that need replacing and, well, replace them.' . "\n";
+$strings = [
+	[ WORKING_DIR . 'https.bash'                 => [ '##URL##', $url ] ],
+	[ WORKING_DIR . 'https.conf'                 => [ '##URL##', $url ] ],
+	[ WORKING_DIR . 'default.conf'               => [ '##URL##', $url ] ],
+	[ WORKING_DIR . 'provision.sh'               => [ '##DB_NAME##', $db_name ] ],
+	[ WORKING_DIR . '../Vagrantfile'             => [ '##URL##', $url ] ],
+	[ WORKING_DIR . '../Vagrantfile'             => [ '##HOSTNAME##', $hostname ] ],
+	[ WORKING_DIR . '../gulpfile.babel.js'       => [ '##PROJECT##', $project ] ],
+	[ WORKING_DIR . '../package.json'            => [ '##PROJECT##', $project ] ],
+	[ WORKING_DIR . '../package.json'            => [ '##DESCRIPTION##', $description ] ],
+	[ WORKING_DIR . '../composer.json'           => [ '##PROJECT##', $project ] ],
+	[ WORKING_DIR . '../composer.json'           => [ '##DESCRIPTION##', $description ] ],
+	[ WORKING_DIR . '../composer.json'           => [ '##HOSTNAME##', $hostname ] ],
+	[ WORKING_DIR . '../src/wp-config-local.php' => [ '##TABLE_PREFIX##', $table_prefix ] ],
+	[ WORKING_DIR . '../src/wp-config-local.php' => [ '##URL##', $url ] ],
+	[ WORKING_DIR . '../src/wp-config-local.php' => [ '##DB_NAME##', $db_name ] ],
+	[ WORKING_DIR . '../src/wp-config.php'       => [ '##PRODUCTION_DOMAIN##', $production_domain ] ],
+	[ WORKING_DIR . '../src/wp-config.php'       => [ '##TABLE_PREFIX##', $table_prefix ] ],
+	[ WORKING_DIR . '../src/wp-config.php'       => [ '##PROJECT##', $project ] ],
+	[ WORKING_DIR . '../src/mu-plugin.php'       => [ '##PROJECT##', $project ] ],
+	[ WORKING_DIR . '../src/mu-plugin.php'       => [ '##PROJECT_NAME##', $project_name ] ],
+	[ WORKING_DIR . '../auth.json'               => [ '##WPMDBPRO_USERNAME##', $wpmdbpro_username ] ],
+	[ WORKING_DIR . '../auth.json'               => [ '##WPMDBPRO_PASSWORD##', $wpmdbpro_password ] ],
+];
 
-sed -i '' -e "s/##PRODUCTION_DOMAIN##/$PRODUCTION_DOMAIN/g"                     ../src/wp-config.php
-sed -i '' -e "s/##TABLE_PREFIX##/$TABLE_PREFIX/g"                               ../src/wp-config.php
-sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../src/wp-config.php
+findAndReplace( $strings );
 
-sed -i '' -e "s/##PROJECT##/$PROJECT/g"                                         ../src/mu-plugin.php
-sed -i '' -e "s/##PROJECT_NAME##/$PROJECT_NAME/g"                               ../src/mu-plugin.php
+echo 'Once again, but for Underscores.' . "\n";
+$strings_underscores = [
+	[ '\'_s\'', $text_domain ],
+	[ '_s_', $function_names ],
+	[ 'Text Domain: _s', $css ],
+	[ ' _s', '$docblocks' ],
+	[ '_s-', $prefixed_handles ],
+];
 
-mv ../src/plugin/wp-framework.php                                               ../src/plugin/$PROJECT.php
+findAndReplaceUnderscores( WORKING_DIR . '../src', $strings_underscores );
 
-# Underscores
-find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/\'_s\'/$TEXT_DOMAIN/g" {} \;
-find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/_s_/$FUNCTION_NAMES/g" {} \;
-find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/Text Domain: _s/$CSS/g" {} \;
-find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/ _s/$DOCBLOCKS/g" {} \;
-find ../src -type f \( ! -iname "screenshot.png" \) -exec sed -i '' -e "s/_s-/$PREFIXED_HANDLES/g" {} \;
-
-mv ../src/sass/style.scss                                                       ../src/sass/$PROJECT.scss
+echo 'Rename the plugin loader file.' . "\n";
+rename( WORKING_DIR . '../src/plugin/wp-framework.php', WORKING_DIR . '../src/plugin/' . $project . '.php' );
