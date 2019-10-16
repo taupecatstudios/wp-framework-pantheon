@@ -21,7 +21,7 @@ export default ( gulp, plugins, args, paths, project ) => {
 
 	gulp.task( 'plugin:loader', ( done ) => {
 
-		gulp.src( paths.src + '/mu-plugin.php' )
+		gulp.src( paths.src + '/mu-plugin.php', { allowEmpty: true } )
 			.pipe( plugins.rename( project + '.php' ) )
 			.pipe( gulp.dest( paths.web + '/wp-content/mu-plugins' ) )
 		;
