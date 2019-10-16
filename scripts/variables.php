@@ -10,12 +10,12 @@ $description       = 'The foundation for WordPress projects.';
 $hostname          = $project . '-site';
 $url               = $project . '.local';
 $production_domain = $project . '.com';
-$wpmdbpro_username = '2280BC70EB7C9F98279D320268DF267D';
-$wpmdbpro_password = '3E34CFC72536C13D81995BE9F7E2083B';
+$wpmdbpro_username = '';
+$wpmdbpro_password = '';
 
 // Underscores variables.
-$text_domain      = "'wpframework'"; // With single quotes
-$function_names   = 'wpframework_';
-$css              = 'Text Domain: wpframework';
-$docblocks        = ' wpframework';
-$prefixed_handles = 'wpframework-';
+$text_domain      = "'" . $project . "'"; // With single quotes
+$function_names   = $project . '_';
+$css              = 'Text Domain: ' . $project;
+$docblocks        = ' ' . $project;
+$prefixed_handles = $project . '-';
