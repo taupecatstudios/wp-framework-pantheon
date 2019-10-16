@@ -1,5 +1,5 @@
 /**
- * Default (dev) gulp process
+ * Build gulp process
  */
 
 export default ( gulp, plugins, args, paths, project ) => {
@@ -12,8 +12,7 @@ export default ( gulp, plugins, args, paths, project ) => {
 		'plugin',
 		'theme',
 		'uploads',
-		'watch',
 	];
 
-	gulp.task( 'default', gulp.series( 'composer', gulp.parallel( tasks ) ) );
+	gulp.task( 'build', gulp.series( 'composer', gulp.parallel( tasks ) ) );
 };
