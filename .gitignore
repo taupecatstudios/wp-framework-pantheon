@@ -1,12 +1,11 @@
-# Uploads
+# Uploads #
+###########
 /web/wp-content/uploads
 /uploads
 !/uploads/.gitkeep
 
-# ACF
-/web/**/acf-json
-
-# WordPress Local Config
+# WordPress Local Config #
+##########################
 /web/wp-config-local.php
 
 # Avoid accidental modification of pantheon.upstream.yml in sites
@@ -33,6 +32,7 @@ pantheon.upstream.yml
 ######################
 *.log
 *.sql
+!/data/*.sql
 
 # OS generated files #
 ######################
@@ -45,28 +45,23 @@ Thumbs.db
 #######################
 *.un~
 
-# SASS #
-########
-.sass-cache
-
-# Composer Packages #
-#####################
+# Package Managers #
+####################
 /vendor
+/node_modules
+/npm-debug.log
 
 # Vagrant #
 ###########
 /.vagrant
 
-# NPM #
-#######
-/node_modules
-/npm-debug.log
-
-# Misc #
-########
+# Secrets #
+###########
 /.env
 /scripts/taupecat.pem
 /scripts/taupecat.key
-/scripts/licenses.bash
 /auth.json
+
+# Backups #
+###########
 *.bak
