@@ -78,11 +78,11 @@ findAndReplace( $strings );
 
 echo 'Once again, but for Underscores.' . "\n";
 $strings_underscores = [
-	[ '\'_s\'', $text_domain ],
-	[ '_s_', $function_names ],
-	[ 'Text Domain: _s', $css ],
-	[ ' _s', '$docblocks' ],
-	[ '_s-', $prefixed_handles ],
+	[ '\'_s\''          => $text_domain ],
+	[ '_s_'             => $function_names ],
+	[ 'Text Domain: _s' => $css ],
+	[ ' _s'             => $docblocks ],
+	[ '_s-'             => $prefixed_handles ],
 ];
 
 findAndReplaceUnderscores( WORKING_DIR . '../src', $strings_underscores );
