@@ -3,7 +3,7 @@
  * Supporting functions.
  */
 
-namespace Configure;
+namespace Taupecat_Studios\Configure;
 
 // Recursively remove directories with files in them.
 function removeDirectory( $path ) {

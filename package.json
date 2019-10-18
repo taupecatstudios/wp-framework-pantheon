@@ -53,6 +53,7 @@
     "build": "gulp build",
     "clean": "gulp clean",
     "composer": "gulp composer",
+    "copy-files": "gulp copy-files",
     "css": "gulp css",
     "css:compile": "gulp css:compile",
     "css:lint": "gulp css:lint",

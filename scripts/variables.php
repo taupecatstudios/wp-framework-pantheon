@@ -1,6 +1,6 @@
 <?php
 
-namespace Configure;
+namespace Taupecat_Studios\Configure;
 
 $project           = 'wp-framework';
 $project_name      = 'WP Framework';

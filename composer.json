@@ -64,18 +64,15 @@
   ],
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "config": {
-    "secure-http": false
-  },
   "extra": {
-    "wordpress-install-dir": "vendor/wordpress",
+    "wordpress-install-dir": "web/wp",
     "installer-paths": {
       "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
       "web/wp-content/themes/{$name}": ["type:wordpress-theme"]
     }
   },
   "scripts": {
-    "wp-core": "rsync -rc --del --include-from .rsync-include --exclude-from .rsync-exclude vendor/wordpress/ web/",
+    "wp-core": "@php scripts/composer.php",
     "wp-muplugin": "rsync -rc --exclude=composer.json --exclude=.git vendor/taupecatstudios/mu-plugins/ web/wp-content/mu-plugins/",
     "post-update-cmd": [
       "@wp-core",

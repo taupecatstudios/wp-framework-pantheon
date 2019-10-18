@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-namespace Configure;
+namespace Taupecat_Studios\Configure;
 
 // Pull in the third-part (AWS, GitHub) SDKs.
 require '/Users/taupecat/.composer/vendor/autoload.php';
