@@ -106,17 +106,17 @@ function remove_directory( $path ) {
 
 	if ( file_exists( $path ) ) {
 
-		$files = glob( $path . '/*' );
+		$files = array_diff( scandir( $path ), array( '.', '..' ) );
 
 		foreach ( $files as $file ) {
 
-			if ( is_dir( $file ) ) {
+			if ( is_dir( $path . '/' . $file ) ) {
 
-				remove_directory( $file );
+				remove_directory( $path . '/' . $file );
 
 			} else {
 
-				unlink( $file );
+				unlink( $path . '/' . $file );
 			}
 		}
 

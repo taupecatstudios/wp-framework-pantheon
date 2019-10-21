@@ -7,8 +7,8 @@ export default ( gulp, plugins, args, paths, project ) => {
 	const tasks = [
 		'acf-json',
 		'copy-files',
-		'css',
-		'js',
+		'css:compile',
+		'js:compile',
 		'plugin',
 		'theme',
 		'uploads',

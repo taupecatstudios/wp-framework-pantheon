@@ -6,9 +6,11 @@
 
 export default ( gulp, plugins, args, paths, project ) => {
 
-	const tasks = [ 'js:footer', 'js:head', 'js:admin', 'js:lint' ];
+	const tasks = [ 'js:footer', 'js:head', 'js:admin' ];
 
-	gulp.task( 'js', gulp.parallel( tasks ) );
+	gulp.task( 'js:compile', gulp.parallel( tasks ) );
+
+	gulp.task( 'js', gulp.parallel( [ tasks, 'js:lint' ] ) );
 
 	// JavaScript that goes in the footer (usually the most important JS).
 	gulp.task( 'js:footer', ( done ) => {
@@ -17,7 +19,7 @@ export default ( gulp, plugins, args, paths, project ) => {
 			.pipe( plugins.plumber() )
 			.pipe( plugins.depend() )
 			.pipe( plugins.sourcemaps.init( { loadMaps: true } ) )
-			.pipe( plugins.concat( project + '-footer.js' ) )
+			.pipe( plugins.concat( project + '.js' ) )
 			.pipe( plugins.uglify() )
 			.pipe( plugins.rename({ suffix: '.min' }) )
 			.pipe( plugins.sourcemaps.write( './' ) )
