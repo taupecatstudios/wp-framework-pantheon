@@ -3,35 +3,10 @@
  * Supporting functions.
  */
 
-namespace Taupecat_Studios\Configure;
-
-// Recursively remove directories with files in them.
-function removeDirectory( $path ) {
-
-	if ( file_exists( $path ) ) {
-
-		$files = glob( $path . '/*' );
-
-		foreach ( $files as $file ) {
-
-			if ( is_dir( $file ) ) {
-
-				removeDirectory( $file );
-
-			} else {
-
-				unlink( $file );
-			}
-		}
-
-		rmdir( $path );
-	}
-
-	return;
-}
+namespace Taupecat_Studios;
 
 // Recursively copy files.
-function copyFiles( $source, $dest ) {
+function copy_files( $source, $dest ) {
 
 	foreach (
 		$iterator = new \RecursiveIteratorIterator(
@@ -49,8 +24,36 @@ function copyFiles( $source, $dest ) {
 	return;
 }
 
+// Pull down objects from AWS S3
+function copy_from_s3( $s3 ) {
+
+	foreach ( $s3['files'] as $source => $destination ) {
+
+		try {
+
+			$result = $s3['client_info']->getObject([
+				'Bucket' => 'taupecatstudios',
+				'Key'    => $source,
+			]);
+
+			file_put_contents( $destination, $result['Body'] );
+
+			if ( 'prepare-commit-msg' === $source ) {
+
+				chmod( $destination, 0755 );
+			}
+
+		} catch ( S3Exception $e ) {
+
+			echo $e->getMessage() . PHP_EOL;
+		}
+	}
+
+	return;
+}
+
 // Find and replace placeholder strings.
-function findAndReplace( $strings ) {
+function find_and_replace( $strings ) {
 
 	foreach ( $strings as $string ) {
 
@@ -66,7 +69,7 @@ function findAndReplace( $strings ) {
 }
 
 // Find and replace placeholder strings, Underscores edition.
-function findAndReplaceUnderscores( $path, $strings ) {
+function find_and_replace_underscores( $path, $strings ) {
 
 	$files = glob( $path . '/*' );
 
@@ -74,7 +77,7 @@ function findAndReplaceUnderscores( $path, $strings ) {
 
 		if ( is_dir( $file ) ) {
 
-			findAndReplaceUnderscores( $file, $strings );
+			find_and_replace_underscores( $file, $strings );
 
 		} else {
 
@@ -98,29 +101,26 @@ function findAndReplaceUnderscores( $path, $strings ) {
 	return;
 }
 
-// Pull down objects from AWS S3
-function copyFromS3( $s3 ) {
+// Recursively remove directories with files in them.
+function remove_directory( $path ) {
 
-	foreach ( $s3['files'] as $source => $destination ) {
+	if ( file_exists( $path ) ) {
 
-		try {
+		$files = glob( $path . '/*' );
 
-			$result = $s3['client_info']->getObject([
-				'Bucket' => 'taupecatstudios',
-				'Key'    => $source,
-			]);
+		foreach ( $files as $file ) {
 
-			file_put_contents( $destination, $result['Body'] );
+			if ( is_dir( $file ) ) {
 
-			if ( 'prepare-commit-msg' === $source ) {
+				remove_directory( $file );
 
-				chmod( $destination, 0755 );
+			} else {
+
+				unlink( $file );
 			}
-
-		} catch ( S3Exception $e ) {
-
-			echo $e->getMessage() . PHP_EOL;
 		}
+
+		rmdir( $path );
 	}
 
 	return;

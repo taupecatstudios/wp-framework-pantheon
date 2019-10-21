@@ -2,6 +2,9 @@
 
 namespace Taupecat_Studios\Composer;
 
+// Import helper functions.
+require WORKING_DIR . 'lib/functions.php';
+
 // Establish the current directory as a constant.
 define( 'WORKING_DIR', __DIR__ . '/' );
 
@@ -23,6 +26,10 @@ foreach ( $files as $file ) {
 	}
 }
 
+// Delete the default "wp-content" directory and create a symlink to the actual one.
+\Taupecat_Studios\remove_directory( WEB_DIR . 'wp/wp-content' );
+symlink( WEB_DIR . 'wp/wp-content', WEB_DIR . 'wp-content' );
+
 // Make a copy of web/wp/index.php, modify it as appropriate, and
 // place it in web/.
 $index = file_get_contents( WEB_DIR . 'wp/index.php' );
@@ -40,13 +47,5 @@ file_put_contents( WEB_DIR . 'wp-content/index.php', $silence );
 file_put_contents( WEB_DIR . 'wp-content/mu-plugins/index.php', $silence );
 file_put_contents( WEB_DIR . 'wp-content/plugins/index.php', $silence );
 file_put_contents( WEB_DIR . 'wp-content/themes/index.php', $silence );
-
-// wp-cli.yml file to tell Pantheon and WP-CLI where the core files are.
-$wp_cli_yml = <<<EOT
-path: wp
-
-EOT;
-
-file_put_contents( WEB_DIR . 'wp-cli.yml', $wp_cli_yml );
 
 exit();
