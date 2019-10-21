@@ -46,7 +46,7 @@
     "wpackagist-plugin/pantheon-hud": "*",
     "wpackagist-plugin/show-current-template": "*",
     "wpackagist-plugin/sucuri-scanner": "*",
-    "wpackagist-plugin/theme-check": "*",
+    "wpackagist-plugin/two-factor-authentication": "*",
     "wpackagist-plugin/worker": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
     "wpackagist-plugin/wp-smushit": "*",
