@@ -5,6 +5,29 @@
 
 namespace Taupecat_Studios;
 
+// Recursively chmod files to 0644.
+function chmod_files( $path ) {
+
+	if ( file_exists( $path ) ) {
+
+		$files = array_diff( scandir( $path ), array( '.', '..' ) );
+
+		foreach ( $files as $file ) {
+
+			if ( is_dir( $path . '/' . $file ) ) {
+
+				chmod_files( $path . '/' . $file );
+
+			} else {
+
+				chmod( $path . '/' . $file, 0644 );
+			}
+		}
+	}
+
+	return;
+}
+
 // Recursively copy files.
 function copy_files( $source, $dest ) {
 

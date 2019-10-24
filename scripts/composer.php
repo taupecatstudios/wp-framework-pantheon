@@ -30,7 +30,9 @@ foreach ( $files as $file ) {
 if ( ! is_link( WEB_DIR . 'wp/wp-content' ) ) {
 
 	\Taupecat_Studios\remove_directory( WEB_DIR . 'wp/wp-content' );
-	symlink( WEB_DIR . 'wp-content', WEB_DIR . 'wp/wp-content' );
+	chdir( WEB_DIR . 'wp' );
+	symlink( '../wp-content', 'wp-content' );
+	chdir( __DIR__ );
 }
 
 // Make a copy of web/wp/index.php, modify it as appropriate, and
@@ -49,5 +51,8 @@ EOT;
 file_put_contents( WEB_DIR . 'wp-content/index.php', $silence );
 file_put_contents( WEB_DIR . 'wp-content/plugins/index.php', $silence );
 file_put_contents( WEB_DIR . 'wp-content/themes/index.php', $silence );
+
+// Chmod all the files in web/wp-content/plugins to 644.
+\Taupecat_Studios\chmod_files( WEB_DIR . 'wp-content/plugins' );
 
 exit();
