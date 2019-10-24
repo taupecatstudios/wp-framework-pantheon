@@ -26,8 +26,8 @@ if ( ! file_exists( $src ) ) {
 
 	\Cz\Git\GitRepository::cloneRepository( $underscores, $src );
 
-	remove_directory( $src . '/.git' );
-	remove_directory( $src . '/.github' );
+	\Taupecat_Studios\remove_directory( $src . '/.git' );
+	\Taupecat_Studios\remove_directory( $src . '/.github' );
 }
 
 echo 'Pull down the AWS-hosted stuff.' . "\n";
@@ -46,7 +46,7 @@ $s3 = [
 	],
 ];
 
-copy_from_s3( $s3 );
+\Taupecat_Studios\copy_from_s3( $s3 );
 
 echo 'Go through the files that have variables that need replacing and, well, replace them.' . "\n";
 $strings = [
@@ -74,7 +74,7 @@ $strings = [
 	[ WORKING_DIR . '../auth.json'               => [ '##WPMDBPRO_PASSWORD##', $wpmdbpro_password ] ],
 ];
 
-find_and_replace( $strings );
+\Taupecat_Studios\find_and_replace( $strings );
 
 echo 'Once again, but for Underscores.' . "\n";
 $strings_underscores = [
@@ -85,7 +85,7 @@ $strings_underscores = [
 	[ '_s-'             => $prefixed_handles ],
 ];
 
-find_and_replace_underscores( WORKING_DIR . '../src', $strings_underscores );
+\Taupecat_Studios\find_and_replace_underscores( WORKING_DIR . '../src', $strings_underscores );
 
 echo 'Rename the plugin loader file.' . "\n";
 rename( WORKING_DIR . '../src/plugin/wp-framework.php', WORKING_DIR . '../src/plugin/' . $project . '.php' );
