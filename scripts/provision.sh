@@ -6,19 +6,24 @@ DB_NAME="##DB_NAME##"
 export DEBIAN_FRONTEND=noninteractive
 
 echo "OS Updates"
-apt-get update
-apt-get dist-upgrade -y
+apt-get update > /dev/null 2>&1
+apt-get dist-upgrade -y > /dev/null 2>&1
 
 echo "Installing MariaDB"
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password password'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password password'
-apt-get -y install mariadb-server
+apt-get -y install mariadb-server > /dev/null 2>&1
 mysql --user=root --password=password -e \
     "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 mysqladmin --user=root --password=password create $DB_NAME
 
+# If a database dump exists, import it.
+if [[ -f /vagrant/data/wp-db-export.sql && -d /vagrant/web/wp ]]; then
+	mysql --user=root --password=password $DB_NAME < /vagrant/data/wp-db-export.sql
+fi
+
 echo "Installing nginx"
-apt-get install -y nginx
+apt-get install -y nginx > /dev/null 2>&1
 
 rm /etc/nginx/sites-enabled/default
 ln -s /vagrant/scripts/default.conf /etc/nginx/sites-enabled/default
@@ -40,7 +45,7 @@ apt-get install -y \
     php-memcache \
     php-mysql \
     php-xdebug \
-    php-xml
+    php-xml > /dev/null 2>&1
 
 rm /etc/php/7.2/fpm/php.ini
 ln -s /vagrant/scripts/php.ini /etc/php/7.2/fpm/php.ini
@@ -52,10 +57,10 @@ sed -i 's/<\/policymap>/  <policy domain="coder" rights="read|write" pattern="LA
 rm /etc/php/7.2/fpm/pool.d/www.conf
 ln -s /vagrant/scripts/www.conf /etc/php/7.2/fpm/pool.d/www.conf
 
-echo "Installing PHPUnit"
-wget -nv https://phar.phpunit.de/phpunit.phar
-chmod +x phpunit.phar
-mv phpunit.phar /usr/local/bin/phpunit
+# echo "Installing PHPUnit"
+# wget -nv https://phar.phpunit.de/phpunit.phar
+# chmod +x phpunit.phar
+# mv phpunit.phar /usr/local/bin/phpunit
 
 echo "Installing WP-CLI"
 curl -O -s https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
