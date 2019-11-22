@@ -45,7 +45,8 @@ apt-get install -y \
     php-memcache \
     php-mysql \
     php-xdebug \
-    php-xml > /dev/null 2>&1
+    php-xml \
+    php-zip > /dev/null 2>&1
 
 rm /etc/php/7.2/fpm/php.ini
 ln -s /vagrant/scripts/php.ini /etc/php/7.2/fpm/php.ini
