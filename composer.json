@@ -41,7 +41,7 @@
     "wpackagist-plugin/debug-bar": "*",
     "wpackagist-plugin/google-analytics-for-wordpress": "*",
     "wpackagist-plugin/iq-block-country": "*",
-    "wpackagist-plugin/limit-login-attempts": "*",
+    "wpackagist-plugin/limit-login-attempts-reloaded": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
     "wpackagist-plugin/pantheon-hud": "*",
     "wpackagist-plugin/show-current-template": "*",
