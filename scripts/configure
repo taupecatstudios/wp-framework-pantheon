@@ -72,6 +72,7 @@ $strings = [
 	[ WORKING_DIR . '../src/mu-plugin.php'       => [ '##PROJECT_NAME##', $project_name ] ],
 	[ WORKING_DIR . '../auth.json'               => [ '##WPMDBPRO_USERNAME##', $wpmdbpro_username ] ],
 	[ WORKING_DIR . '../auth.json'               => [ '##WPMDBPRO_PASSWORD##', $wpmdbpro_password ] ],
+	[ WORKING_DIR . '../.site-identifier'        => [ '##PROJECT##', $project ] ],
 ];
 
 \Taupecat_Studios\find_and_replace( $strings );
