@@ -33,6 +33,7 @@ pantheon.upstream.yml
 *.log
 *.sql
 !/data/*.sql
+/data/wp-db-export.sql
 
 # OS generated files #
 ######################
