@@ -2,11 +2,13 @@
 
 export default ( gulp, plugins, args, paths, project ) => {
 
-	const options = { standard: 'WordPress' };
+	const options = {};
 
 	gulp.task( 'phpcs', gulp.parallel( [ 'phpcs:theme', 'phpcs:plugin' ] ) );
 
 	gulp.task( 'phpcs:theme', () => {
+
+		options.standard = paths.srcTheme + '/phpcs.xml';
 
 		return gulp.src( paths.srcTheme + '/**/*.php' )
 			.pipe( plugins.plumber() )
@@ -16,6 +18,8 @@ export default ( gulp, plugins, args, paths, project ) => {
 	});
 
 	gulp.task( 'phpcs:plugin', () => {
+
+		options.standard = paths.srcPlugin + '/phpcs.xml';
 
 		return gulp.src( paths.srcPlugin + '/**/*.php' )
 			.pipe( plugins.plumber() )
