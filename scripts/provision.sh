@@ -9,12 +9,15 @@ echo "OS Updates"
 apt-get update > /dev/null 2>&1
 apt-get dist-upgrade -y > /dev/null 2>&1
 
+echo "NTP"
+apt-get install -y ntp ntpdate > /dev/null 2>&1
+
 echo "Installing MariaDB"
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password password'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password password'
 apt-get -y install mariadb-server > /dev/null 2>&1
 mysql --user=root --password=password -e \
-    "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+	"GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 mysqladmin --user=root --password=password create $DB_NAME
 
 # If a database dump exists, import it.
@@ -33,20 +36,20 @@ ln -s /vagrant/scripts/nginx.conf /etc/nginx/nginx.conf
 
 echo "Installing PHP"
 apt-get install -y \
-    ghostscript \
-    imagemagick \
-    php-cli \
-    php-curl \
-    php-fpm \
-    php-gd \
-    php-imagick \
-    php-json \
-    php-mbstring \
-    php-memcache \
-    php-mysql \
-    php-xdebug \
-    php-xml \
-    php-zip > /dev/null 2>&1
+	ghostscript \
+	imagemagick \
+	php-cli \
+	php-curl \
+	php-fpm \
+	php-gd \
+	php-imagick \
+	php-json \
+	php-mbstring \
+	php-memcache \
+	php-mysql \
+	php-xdebug \
+	php-xml \
+	php-zip > /dev/null 2>&1
 
 rm /etc/php/7.2/fpm/php.ini
 ln -s /vagrant/scripts/php.ini /etc/php/7.2/fpm/php.ini
