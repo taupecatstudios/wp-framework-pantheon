@@ -39,7 +39,9 @@ export default ( gulp, plugins, args, paths, project ) => {
 			}))
 			.pipe( plugins.sourcemaps.write( './' ) )
 			.pipe( gulp.dest( paths.webCss ) )
-			.pipe( plugins.livereload() )
+			.on( 'end', () => {
+				plugins.livereload.reload( paths.webCss + '/' + project + '.min.css' );
+			})
 		;
 
 		done();
