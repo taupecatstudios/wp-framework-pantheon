@@ -17,19 +17,6 @@ require WORKING_DIR . 'variables.php';
 // Import helper functions.
 require WORKING_DIR . 'lib/functions.php';
 
-echo 'Clone the _s fork from Taupecat Studios\' GitHub account, and recursively remove the .git and .github directories.' . "\n";
-
-$src         = WORKING_DIR . '../src';
-$underscores = 'https://github.com/taupecatstudios/_s.git';
-
-if ( ! file_exists( $src ) ) {
-
-	\Cz\Git\GitRepository::cloneRepository( $underscores, $src );
-
-	\Taupecat_Studios\remove_directory( $src . '/.git' );
-	\Taupecat_Studios\remove_directory( $src . '/.github' );
-}
-
 echo 'Pull down the AWS-hosted stuff.' . "\n";
 $s3 = [
 	'client_info' => new \Aws\S3\S3Client([
@@ -76,17 +63,6 @@ $strings = [
 ];
 
 \Taupecat_Studios\find_and_replace( $strings );
-
-echo 'Once again, but for Underscores.' . "\n";
-$strings_underscores = [
-	[ '\'_s\''          => $text_domain ],
-	[ '_s_'             => $function_names ],
-	[ 'Text Domain: _s' => $css ],
-	[ ' _s'             => $docblocks ],
-	[ '_s-'             => $prefixed_handles ],
-];
-
-\Taupecat_Studios\find_and_replace_underscores( WORKING_DIR . '../src', $strings_underscores );
 
 echo 'Rename the plugin loader file.' . "\n";
 rename( WORKING_DIR . '../src/plugin/wp-framework.php', WORKING_DIR . '../src/plugin/' . $project . '.php' );
