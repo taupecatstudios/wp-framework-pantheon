@@ -4,12 +4,12 @@
  *
  * @link https://jetpack.com/
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
-class Jetpack extends %%CLASSNAME%% {
+class Jetpack extends ##CLASSNAME## {
 
 	public function __construct() {
 

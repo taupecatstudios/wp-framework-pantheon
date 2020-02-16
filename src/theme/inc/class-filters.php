@@ -2,15 +2,15 @@
 /**
  * Filters.
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
 /**
  * Filters.
  */
-class Filters extends %%CLASSNAME%% {
+class Filters extends ##CLASSNAME## {
 
 	/**
 	 * Constructor.

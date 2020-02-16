@@ -1,23 +1,23 @@
 <?php
 /**
- * Master %%THEMENAME%% class loader.
+ * Master '##PROJECT##' class loader.
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
 /**
- * Master %%THEMENAME%% class to activate all the specialized classes.
+ * Master class to activate all the specialized classes.
  */
-class %%CLASSNAME%% {
+class ##CLASSNAME## {
 
 	/**
 	 * Project name.
 	 *
 	 * @var string
 	 */
-	protected $project_name = '%%PROJECT%%';
+	protected $project_name = '##PROJECT##';
 
 	/**
 	 * Template directory.

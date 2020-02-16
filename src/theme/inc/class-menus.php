@@ -2,15 +2,15 @@
 /**
  * Menus.
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
 /**
  * Menus.
  */
-class Menus extends %%CLASSNAME%% {
+class Menus extends ##CLASSNAME## {
 
 	/**
 	 * Constructor.
@@ -40,7 +40,7 @@ class Menus extends %%CLASSNAME%% {
 
 		register_nav_menus(
 			array(
-				'primary-nav' => esc_html__( 'Primary Navigation', '%%TEXTDOMAIN%%' ),
+				'primary-nav' => esc_html__( 'Primary Navigation', '##TEXTDOMAIN##' ),
 			)
 		);
 	}

@@ -2,15 +2,15 @@
 /**
  * Actions.
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
 /**
  * Action hooks.
  */
-class Actions extends %%CLASSNAME%% {
+class Actions extends ##CLASSNAME## {
 
 	/**
 	 * CSS cache-busting timestamp.
@@ -63,7 +63,7 @@ class Actions extends %%CLASSNAME%% {
 		 * If you're building a theme based on _s, use a find and replace
 		 * to change '_s' to the name of your theme in all the template files.
 		 */
-		load_theme_textdomain( '%%TEXTDOMAIN%%', $this->template_directory . 'languages' );
+		load_theme_textdomain( '##TEXTDOMAIN##', $this->template_directory . 'languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );

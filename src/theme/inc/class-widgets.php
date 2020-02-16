@@ -2,12 +2,12 @@
 /**
  * Widget areas.
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
-class Widgets extends %%CLASSNAME%% {
+class Widgets extends ##CLASSNAME## {
 
 	/**
 	 * Default widget area arguments.
@@ -61,9 +61,9 @@ class Widgets extends %%CLASSNAME%% {
 		$args = array_merge(
 			$this->default_args,
 			array(
-				'name'          => esc_html__( 'Sidebar', '_s' ),
+				'name'          => esc_html__( 'Sidebar', '##TEXTDOMAIN##' ),
 				'id'            => 'sidebar-1',
-				'description'   => esc_html__( 'Add widgets here.', '_s' ),
+				'description'   => esc_html__( 'Add widgets here.', '##TEXTDOMAIN##' ),
 			)
 		);
 

@@ -4,12 +4,12 @@
  *
  * @link https://woocommerce.com/
  *
- * @package _s
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
-class WooCommerce extends %%CLASSNAME%% {
+class WooCommerce extends ##CLASSNAME## {
 
 	/**
 	 * Initialize

@@ -2,7 +2,7 @@
 /**
  * Functions which enhance the theme by hooking into WordPress
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;

@@ -1,16 +1,16 @@
 <?php
 /**
- * %%THEMENAME%% Theme Customizer
+ * Theme Customizer
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
 /**
  * Theme customizer.
  */
-class Customizer extends %%CLASSNAME%% {
+class Customizer extends ##CLASSNAME## {
 
 	/**
 	 * Constructor.
@@ -23,7 +23,7 @@ class Customizer extends %%CLASSNAME%% {
 
 	/**
 	 * Initialize.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function initialize() {
