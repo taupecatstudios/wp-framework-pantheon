@@ -4,6 +4,12 @@
 $hostname         = '##HOSTNAME##'
 $hostname_alias   = '##URL##'
 
+class VagrantPlugins::ProviderVirtualBox::Action::Network
+  def dhcp_server_matches_config?(dhcp_server, config)
+    true
+  end
+end
+
 $logger = Log4r::Logger.new('vagrantfile')
 def read_ip_address(machine)
   command =  "ip a | grep 'inet' | grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $2 }' | cut -f1 -d\"/\""
