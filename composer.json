@@ -51,9 +51,9 @@
     "wpackagist-plugin/wp-native-php-sessions": "*",
     "wpackagist-plugin/wp-smushit": "*",
 
-    "wpackagist-theme/twentysixteen": "*",
     "wpackagist-theme/twentyseventeen": "*",
-    "wpackagist-theme/twentynineteen": "*"
+    "wpackagist-theme/twentysixteen": "*",
+    "wpackagist-theme/twentytwenty": "*"
   },
   "license": "MIT",
   "authors": [
