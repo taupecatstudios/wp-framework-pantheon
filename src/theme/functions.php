@@ -1,12 +1,12 @@
 <?php
 /**
- * Loader for %%THEMENAME%% classes, functions, etc.
+ * Loader for ##PROJECT## classes, functions, etc.
  *
- * @package %%PACKAGENAME%%
+ * @package ##PACKAGE##
  */
 
-namespace %%VARPREFIX%%\theme;
+namespace ##VARPREFIX##\theme;
 
-require_once __DIR__ . '/inc/class-%%CLASSFILENAME%%.php';
+require_once __DIR__ . '/inc/class-##PROJECT##.php';
 
-( new %%CLASSNAME%%() )->initialize();
+( new ##CLASSNAME##() )->initialize();

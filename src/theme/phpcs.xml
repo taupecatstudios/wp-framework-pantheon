@@ -56,7 +56,7 @@
 		 Multiple valid text domains can be provided as a comma-delimited list. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="%%TEXTDOMAIN%%"/>
+			<property name="text_domain" type="array" value="##TEXTDOMAIN##"/>
 		</properties>
 	</rule>
 
@@ -88,40 +88,8 @@
 		 Multiple valid prefixes can be provided as a comma-delimited list. -->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
-			<property name="prefixes" type="array" value="%%VARPREFIX%%" />
+			<property name="prefixes" type="array" value="##VARPREFIX##" />
 		</properties>
-	</rule>
-
-
-	<!--
-	#############################################################################
-	USE THE PHPCompatibility RULESET
-	#############################################################################
-	-->
-
-
-	<config name="testVersion" value="5.2-99.0"/>
-	<rule ref="PHPCompatibility">
-		<!-- Whitelist PHP native classes, interfaces, functions and constants which
-			 are back-filled by WP.
-
-			 Based on:
-			 * /wp-includes/compat.php
-			 * /wp-includes/random_compat/random.php
-		-->
-		<exclude name="PHPCompatibility.PHP.NewClasses.errorFound"/>
-		<exclude name="PHPCompatibility.PHP.NewClasses.typeerrorFound"/>
-
-		<exclude name="PHPCompatibility.PHP.NewConstants.json_pretty_printFound"/>
-		<exclude name="PHPCompatibility.PHP.NewConstants.php_version_idFound"/>
-
-		<exclude name="PHPCompatibility.PHP.NewFunctions.hash_equalsFound"/>
-		<exclude name="PHPCompatibility.PHP.NewFunctions.json_last_error_msgFound"/>
-		<exclude name="PHPCompatibility.PHP.NewFunctions.random_intFound"/>
-		<exclude name="PHPCompatibility.PHP.NewFunctions.random_bytesFound"/>
-		<exclude name="PHPCompatibility.PHP.NewFunctions.array_replace_recursiveFound"/>
-
-		<exclude name="PHPCompatibility.PHP.NewInterfaces.jsonserializableFound"/>
 	</rule>
 
 	<!-- Whitelist the WP Core mysql_to_rfc3339() function. -->

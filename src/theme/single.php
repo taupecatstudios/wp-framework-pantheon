@@ -4,14 +4,15 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
- * @package _s
+ * @package ##PACKAGE##
  */
 
 get_header();
 ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
+<div id="primary" class="content-area">
+
+	<main id="main" class="site-main">
 
 		<?php
 		while ( have_posts() ) :
@@ -29,8 +30,11 @@ get_header();
 		endwhile; // End of the loop.
 		?>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+	</main>
+	<!-- #main -->
+
+</div>
+<!-- #primary -->
 
 <?php
 get_sidebar();
