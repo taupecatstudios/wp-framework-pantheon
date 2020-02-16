@@ -26,7 +26,7 @@ class Menus extends %%CLASSNAME%% {
 	 *
 	 * @return void
 	 */
-	public function intialize() {
+	public function initialize() {
 
 		$this->register_nav_menus();
 	}

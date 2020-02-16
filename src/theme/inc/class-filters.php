@@ -26,7 +26,7 @@ class Filters extends %%CLASSNAME%% {
 	 *
 	 * @return void
 	 */
-	public function intialize() {
+	public function initialize() {
 
 		add_filter( 'body_class', array( $this, 'body_classes' ) );
 	}
@@ -35,7 +35,7 @@ class Filters extends %%CLASSNAME%% {
 	 * Adds custom classes to the array of body classes.
 	 *
 	 * @param array $classes Classes for the body element.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function body_classes( $classes ) {

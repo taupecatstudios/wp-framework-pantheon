@@ -11,6 +11,11 @@ namespace %%VARPREFIX%%\theme;
 
 class WooCommerce extends %%CLASSNAME%% {
 
+	/**
+	 * Initialize
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 
 		$this->setup();

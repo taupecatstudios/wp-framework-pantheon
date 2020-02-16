@@ -15,6 +15,11 @@ class Jetpack extends %%CLASSNAME%% {
 
 	}
 
+	/**
+	 * Initialize
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 
 		$this->jetpack_setup();
