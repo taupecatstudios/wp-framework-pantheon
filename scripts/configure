@@ -36,33 +36,7 @@ $s3 = [
 \Taupecat_Studios\copy_from_s3( $s3 );
 
 echo 'Go through the files that have variables that need replacing and, well, replace them.' . "\n";
-$strings = [
-	[ WORKING_DIR . 'https.bash'                 => [ '##URL##', $url ] ],
-	[ WORKING_DIR . 'https.conf'                 => [ '##URL##', $url ] ],
-	[ WORKING_DIR . 'default.conf'               => [ '##URL##', $url ] ],
-	[ WORKING_DIR . 'provision.sh'               => [ '##DB_NAME##', $db_name ] ],
-	[ WORKING_DIR . '../Vagrantfile'             => [ '##URL##', $url ] ],
-	[ WORKING_DIR . '../Vagrantfile'             => [ '##HOSTNAME##', $hostname ] ],
-	[ WORKING_DIR . '../gulpfile.babel.js'       => [ '##PROJECT##', $project ] ],
-	[ WORKING_DIR . '../package.json'            => [ '##PROJECT##', $project ] ],
-	[ WORKING_DIR . '../package.json'            => [ '##DESCRIPTION##', $description ] ],
-	[ WORKING_DIR . '../composer.json'           => [ '##PROJECT##', $project ] ],
-	[ WORKING_DIR . '../composer.json'           => [ '##DESCRIPTION##', $description ] ],
-	[ WORKING_DIR . '../composer.json'           => [ '##HOSTNAME##', $hostname ] ],
-	[ WORKING_DIR . '../src/wp-config-local.php' => [ '##TABLE_PREFIX##', $table_prefix ] ],
-	[ WORKING_DIR . '../src/wp-config-local.php' => [ '##URL##', $url ] ],
-	[ WORKING_DIR . '../src/wp-config-local.php' => [ '##DB_NAME##', $db_name ] ],
-	[ WORKING_DIR . '../src/wp-config.php'       => [ '##PRODUCTION_DOMAIN##', $production_domain ] ],
-	[ WORKING_DIR . '../src/wp-config.php'       => [ '##TABLE_PREFIX##', $table_prefix ] ],
-	[ WORKING_DIR . '../src/wp-config.php'       => [ '##PROJECT##', $project ] ],
-	[ WORKING_DIR . '../src/mu-plugin.php'       => [ '##PROJECT##', $project ] ],
-	[ WORKING_DIR . '../src/mu-plugin.php'       => [ '##PROJECT_NAME##', $project_name ] ],
-	[ WORKING_DIR . '../auth.json'               => [ '##WPMDBPRO_USERNAME##', $wpmdbpro_username ] ],
-	[ WORKING_DIR . '../auth.json'               => [ '##WPMDBPRO_PASSWORD##', $wpmdbpro_password ] ],
-	[ WORKING_DIR . '../.site-identifier'        => [ '##PROJECT##', $project ] ],
-];
-
-\Taupecat_Studios\find_and_replace( $strings );
+\Taupecat_Studios\find_and_replace( $variables );
 
 echo 'Rename the plugin loader file.' . "\n";
 rename( WORKING_DIR . '../src/plugin/wp-framework.php', WORKING_DIR . '../src/plugin/' . $project . '.php' );

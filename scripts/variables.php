@@ -2,20 +2,21 @@
 
 namespace Taupecat_Studios\Configure;
 
-$project           = 'wp-framework';
-$project_name      = 'WP Framework';
-$db_name           = 'wpframework_site_dev';
-$table_prefix      = 'wpframework_wp_';
-$description       = 'The foundation for WordPress projects.';
-$hostname          = $project . '-site';
-$url               = $project . '.local';
-$production_domain = $project . '.com';
-$wpmdbpro_username = '';
-$wpmdbpro_password = '';
+$project = 'wp-framework';
 
-// Underscores variables.
-$text_domain      = "'" . $project . "'"; // With single quotes
-$function_names   = $project . '_';
-$css              = 'Text Domain: ' . $project;
-$docblocks        = ' ' . $project;
-$prefixed_handles = $project . '-';
+$variables = array(
+	'##PROJECT##'           => $project,
+	'##PROJECT_NAME##'      => 'WP Framework',
+	'##DB_NAME##'           => 'wpframework_site_dev',
+	'##TABLE_PREFIX##'      => 'wpframework_wp_',
+	'##DESCRIPTION##'       => 'The foundation for WordPress projects.',
+	'##HOSTNAME##'          => $project . '-site',
+	'##URL##'               => $project . '.local',
+	'##PRODUCTION_DOMAIN##' => $project . '.com',
+	'##TEXTDOMAIN##'        => 'textdomain',
+	'##VARPREFIX##'         => 'varprefix',
+	'##PACKAGE##'           => 'Package Name',
+	'##CLASSNAME##'         => 'Class_Name',
+	'##WPMDBPRO_USERNAME##' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+	'##WPMDBPRO_PASSWORD##' => 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+);

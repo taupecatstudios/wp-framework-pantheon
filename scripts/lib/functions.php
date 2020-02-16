@@ -76,49 +76,37 @@ function copy_from_s3( $s3 ) {
 }
 
 // Find and replace placeholder strings.
-function find_and_replace( $strings ) {
+function find_and_replace( $variables ) {
 
-	foreach ( $strings as $string ) {
+	$directory = WORKING_DIR . '..';
 
-		foreach ( $string as $filename => $replacement ) {
+	$iterator = new \RecursiveIteratorIterator( new \RecursiveDirectoryIterator( $directory ) );
 
-			$file_contents = file_get_contents( $filename );
-			$file_contents = str_replace( $replacement[0], $replacement[1], $file_contents );
-			file_put_contents( $filename, $file_contents );
-		}
-	}
+	$iterator->rewind();
 
-	return;
-}
+	while ( $iterator->valid() ) {
 
-// Find and replace placeholder strings, Underscores edition.
-function find_and_replace_underscores( $path, $strings ) {
+		$process = true;
 
-	$files = glob( $path . '/*' );
+		if ( $iterator->isDot() )                                  $process = false;
+		if ( preg_match( '/^\.git/', $iterator->getSubPath() ) )   $process = false;
+		if ( preg_match( '/variables\.php$/', $iterator->key() ) ) $process = false;
+		if ( 0 === filesize( $iterator->key() ) )                  $process = false;
 
-	foreach ( $files as $file ) {
+		if ( $process ) {
 
-		if ( is_dir( $file ) ) {
+			$key = $iterator->key();
+			$file_array = file( $key );
 
-			find_and_replace_underscores( $file, $strings );
+			foreach ( $variables as $placeholder => $value ) {
 
-		} else {
-
-			$file_info = new \finfo( FILEINFO_MIME );
-			$mime_type = $file_info->buffer( file_get_contents( $file ) );
-			if ( strstr( $mime_type, 'text/' ) ) {
-
-				foreach ( $strings as $string ) {
-
-					foreach ( $string as $find => $replace ) {
-
-						$file_contents = file_get_contents( $file );
-						$file_contents = str_replace( $find, $replace, $file_contents );
-						file_put_contents( $file, $file_contents );
-					}
-				}
+				$file_array = preg_replace( "/$placeholder/", $value, $file_array );
+				$handle = fopen( $key, 'w' );
+				fwrite( $handle, join( $file_array ) );
 			}
 		}
+
+		$iterator->next();
 	}
 
 	return;
