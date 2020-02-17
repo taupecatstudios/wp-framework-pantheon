@@ -4,6 +4,9 @@
  * Handles toggling the navigation menu for small screens and enables TAB key
  * navigation support for dropdown menus.
  */
+
+'use strict';
+
 ( function() {
 	var container, button, menu, links, i, len;
 
