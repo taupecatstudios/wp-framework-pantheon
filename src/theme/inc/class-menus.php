@@ -36,7 +36,7 @@ class Menus extends ##CLASSNAME## {
 	 *
 	 * @return void
 	 */
-	private register_nav_menus() {
+	private function register_nav_menus() {
 
 		register_nav_menus(
 			array(
