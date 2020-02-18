@@ -14,7 +14,7 @@ class Widgets extends ##CLASSNAME## {
 	 *
 	 * @var array
 	 */
-	private $this->default_args;
+	private $default_args;
 
 	/**
 	 * Constructor.
