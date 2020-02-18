@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package _s
+ * @package ##PACKAGE##
  */
 
 ?>
@@ -25,8 +25,8 @@
 			<div class="entry-meta">
 
 				<?php
-				\%%VARPREFIX%%\theme\posted_on();
-				\%%VARPREFIX%%\theme\posted_by();
+				\##VARPREFIX##\theme\posted_on();
+				\##VARPREFIX##\theme\posted_by();
 				?>
 
 			</div>
@@ -37,7 +37,7 @@
 	</header>
 	<!-- .entry-header -->
 
-	<?php \%%VARPREFIX%%\theme\post_thumbnail(); ?>
+	<?php \##VARPREFIX##\theme\post_thumbnail(); ?>
 
 	<div class="entry-content">
 
@@ -66,7 +66,7 @@
 
 	<footer class="entry-footer">
 
-		<?php \%%VARPREFIX%%\theme\entry_footer(); ?>
+		<?php \##VARPREFIX##\theme\entry_footer(); ?>
 
 	</footer>
 	<!-- .entry-footer -->
