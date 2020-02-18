@@ -33,8 +33,18 @@ class Actions extends ##CLASSNAME## {
 	 */
 	public function __construct() {
 
-		$this->css_cachebust = filemtime( $this->template_directory . 'css/' . $this->project_name . '.min.css' );
-		$this->js_cachebust  = filemtime( $this->template_directory . 'js/' . $this->project_name . '.min.js' );
+		$css = $this->template_directory . 'css/' . $this->project_name . '.min.css';
+		$js  = $this->template_directory . 'js/' . $this->project_name . '.min.js';
+
+		if ( file_exists( $css ) ) {
+
+			$this->css_cachebust = filemtime( $css );
+		}
+
+		if ( file_exists( $js ) ) {
+
+			$this->js_cachebust  = filemtime( $js );
+		}
 	}
 
 	/**
