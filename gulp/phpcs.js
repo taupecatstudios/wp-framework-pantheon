@@ -1,5 +1,3 @@
-'use strict';
-
 export default ( gulp, plugins, args, paths, project ) => {
 
 	const options = {};

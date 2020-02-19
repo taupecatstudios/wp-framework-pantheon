@@ -4,8 +4,6 @@
  * Lint and process Sass into CSS
  */
 
-'use strict';
-
 import autoprefixer from 'autoprefixer';
 import cssnano      from 'cssnano';
 import Fiber        from 'fibers';
