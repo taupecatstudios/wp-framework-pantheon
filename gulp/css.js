@@ -27,6 +27,8 @@ export default ( gulp, plugins, args, paths, project ) => {
 			.pipe( plugins.plumber() )
 			.pipe( plugins.sourcemaps.init( { loadMaps: true } ) )
 			.pipe( plugins.sass( { fiber: Fiber } ).on( 'error', plugins.sass.logError ) )
+			.pipe( plugins.rename( { basename: project } ) )
+			.pipe( plugins.dest( paths.webCss ) )
 			.pipe( plugins.postcss([
 				autoprefixer( { grid: true } ),
 				cssnano()
