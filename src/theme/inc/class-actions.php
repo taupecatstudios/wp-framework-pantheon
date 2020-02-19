@@ -142,7 +142,7 @@ class Actions extends ##CLASSNAME## {
 		$dependencies    = array();
 		$main_javascript = $this->project_name . '-script';
 
-		wp_register_style(
+		wp_register_script(
 			$main_javascript,
 			$this->template_directory_uri . 'js/' . $this->project_name . '.min.js',
 			$dependencies,
@@ -150,7 +150,7 @@ class Actions extends ##CLASSNAME## {
 			true
 		);
 
-		wp_enqueue_style( $main_javascript );
+		wp_enqueue_script( $main_javascript );
 	}
 
 	/**
