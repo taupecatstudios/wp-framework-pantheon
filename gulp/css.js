@@ -51,7 +51,7 @@ export default ( gulp, plugins, args, paths, project ) => {
 
 		gulp.src( src )
 			.pipe( plugins.stylelint({
-				configFile: paths.srcSass + '/.stylelintrc.json',
+				configFile: paths.srcSass + '/stylelintrc.json',
 				reporters: [ { formatter: 'string', console: true } ],
 				failAfterError: false
 			}))

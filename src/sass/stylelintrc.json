@@ -7,7 +7,21 @@
   "rules": {
     "at-rule-empty-line-before": null,
     "at-rule-no-unknown": [ true, {
-      "ignoreAtRules": [ "function", "return", "include", "extend", "mixin", "if", "else", "warn", "for", "each" ]
+      "ignoreAtRules": [
+        "debug",
+        "each",
+        "else",
+        "extend",
+        "for",
+        "forward",
+        "function",
+        "if",
+        "include",
+        "mixin",
+        "return",
+        "use",
+        "warn"
+      ]
     }],
     "block-closing-brace-newline-before": "always",
     "color-named": "never",
