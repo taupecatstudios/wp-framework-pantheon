@@ -52,7 +52,7 @@
     "wpackagist-plugin/wp-smushit": "*",
 
     "wpackagist-theme/twentyseventeen": "*",
-    "wpackagist-theme/twentysixteen": "*",
+    "wpackagist-theme/twentynineteen": "*",
     "wpackagist-theme/twentytwenty": "*"
   },
   "license": "MIT",
