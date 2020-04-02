@@ -79,7 +79,7 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 					$primary_domain = '##PRODUCTION_DOMAIN##';
 					break;
 
-				case 'local':
+				case 'lando':
 					$primary_domain = '##PROJECT##.pantheonlocal.com';
 					break;
 
