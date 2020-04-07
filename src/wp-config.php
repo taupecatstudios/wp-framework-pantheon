@@ -107,8 +107,10 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 		/** Don't show deprecations; useful under PHP 5.5 */
 		error_reporting( E_ALL ^ E_DEPRECATED );
 
-		/** Define appropriate location for default tmp directory on Pantheon */
-		define( 'WP_TEMP_DIR', $_SERVER['HOME'] . '/tmp' );
+		/** Force the use of a safe temp directory when in a container */
+		if ( defined( 'PANTHEON_BINDING' ) ) {
+			define( 'WP_TEMP_DIR', rtrim( $_ENV['HOME'], '/' ) . '/tmp' );
+		}
 
 		/** Make sure Jetpack is always in debug mode in non-live environments */
 		if ( ( 'live' !== $_ENV['PANTHEON_ENVIRONMENT'] ) && ( ! defined( 'JETPACK_DEV_DEBUG' ) ) ) {
