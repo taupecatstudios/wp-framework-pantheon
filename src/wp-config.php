@@ -8,6 +8,9 @@
  * https://pantheon.io/docs
  */
 
+$project_name = '##PROJECT##';
+$live_url     = '##PRODUCTION_DOMAIN##';
+
 /**
  * Local configuration information.
  *
@@ -41,7 +44,7 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 		define( 'DB_HOST', $_ENV['DB_HOST'] . ':' . $_ENV['DB_PORT'] );
 
 		/** Database Charset to use in creating database tables. */
-		define( 'DB_CHARSET', 'utf8' );
+		define( 'DB_CHARSET', 'utf8mb4' );
 
 		/** The Database Collate type. Don't change this if in doubt. */
 		define( 'DB_COLLATE', '' );
@@ -76,15 +79,20 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 			switch ( $_ENV['PANTHEON_ENVIRONMENT'] ) {
 
 				case 'live':
-					$primary_domain = '##PRODUCTION_DOMAIN##';
+					// $primary_domain = $live_url;
+					$primary_domain = 'live-' . $project_name . '.pantheonsite.io';
 					break;
 
 				case 'lando':
-					$primary_domain = '##PROJECT##.pantheonlocal.com';
+					$primary_domain = $project_name . '.pantheonlocal.com';
 					break;
 
 				default:
-					$primary_domain = $_ENV['PANTHEON_ENVIRONMENT'] . '-##PROJECT##.pantheonsite.io';
+					$primary_domain = sprintf(
+						'%1$s-%2$s.pantheonsite.io',
+						$_ENV['PANTHEON_ENVIRONMENT'],
+						$project_name
+					);
 					break;
 			}
 
