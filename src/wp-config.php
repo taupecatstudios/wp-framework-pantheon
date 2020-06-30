@@ -19,7 +19,6 @@ $live_url     = '##PRODUCTION_DOMAIN##';
  * which you should also make sure you .gitignore.
  */
 if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PANTHEON_ENVIRONMENT'] ) ) ) {
-
 	require_once( __DIR__ . '/wp-config-local.php' );
 
 /**
@@ -85,6 +84,7 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 
 				case 'lando':
 					$primary_domain = $project_name . '.pantheonlocal.com';
+					define( 'WP_DEBUG', true );
 					break;
 
 				default:
@@ -100,7 +100,6 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 			$base_url = 'https://' . $primary_domain;
 
 			if ( ( $primary_domain !== $_SERVER['HTTP_HOST'] ) || ( ! isset( $_SERVER['HTTP_X_SSL'] ) ) || ( 'ON' !== $_SERVER['HTTP_X_SSL'] ) ) {
-
 				header( 'HTTP/1.0 301 Moved Permanently' );
 				header( 'Location: ' . $base_url . $_SERVER['REQUEST_URI'] );
 				exit();
@@ -159,7 +158,6 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
  * prefix. Only numbers, letters, and underscores please!
  */
 if ( ! isset( $table_prefix ) ) {
-
 	$table_prefix = '##TABLE_PREFIX##';
 }
 
@@ -172,7 +170,6 @@ if ( ! isset( $table_prefix ) ) {
  * language support.
  */
 if ( ! defined( 'WPLANG' ) ) {
-
 	define( 'WPLANG', '' );
 }
 
@@ -187,7 +184,6 @@ if ( ! defined( 'WPLANG' ) ) {
  * "true" in dev, but false in test and live.
  */
 if ( ! defined( 'WP_DEBUG' ) ) {
-
 	define( 'WP_DEBUG', false );
 }
 
@@ -196,14 +192,12 @@ if ( ! defined( 'WP_DEBUG' ) ) {
  * displaying errors on the screen.
  */
 if ( WP_DEBUG ) {
-
 	define( 'WP_DEBUG_DISPLAY', false );
-	define( 'WP_DEBUG_LOG', __DIR__ . '/../debug.log' );
+	define( 'WP_DEBUG_LOG', __DIR__ . '/debug.log' );
 	define( 'SAVEQUERIES', true );
 
 	/** Jetpack should be in debug mode any time WP_DEBUG is true. */
 	if ( ! defined( 'JETPACK_DEV_DEBUG' ) ) {
-
 		define( 'JETPACK_DEV_DEBUG', true );
 	}
 }
@@ -215,7 +209,6 @@ define( 'DISALLOW_FILE_EDIT', true );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
-
 	define( 'ABSPATH', __DIR__ . '/' );
 }
 

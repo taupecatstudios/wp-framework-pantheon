@@ -2,57 +2,82 @@
 
 namespace Taupecat_Studios\Composer;
 
-// Establish the current directory as a constant.
-define( 'WORKING_DIR', __DIR__ . '/' );
+class Install {
 
-// Import helper functions.
-require WORKING_DIR . 'lib/functions.php';
+	// Current (this) directory.
+	private $working_dir;
 
-// Establish '../web' as a constant, since we'll be
-// working exclusively within that directory.
-define( 'WEB_DIR', WORKING_DIR . '../web/' );
+	// Our web directory (docroot).
+	private $web_dir;
 
-// Remove files that we don't want in web/wp/.
-$files = [
-	WEB_DIR . 'wp/composer.json',
-	WEB_DIR . 'wp/readme.html',
-];
+	public function __construct() {
+		$this->working_dir = __DIR__;
+		$this->web_dir     = $this->working_dir . '/../web';
 
-foreach ( $files as $file ) {
+		// Require our file of helper functions.
+		require $this->working_dir . '/lib/functions.php';
+	}
 
-	if ( file_exists( $file ) ) {
+	public function init() {
 
-		unlink( $file );
+		// Make adjustments for "WordPress in a subdirectory."
+		$this->install_wordpress_core();
+
+		// Install our common must-use plugins.
+		$this->install_mu_plugins();
+	}
+
+	private function install_wordpress_core() {
+
+		// Remove files that we don't want in web/wp/.
+		$files = [
+			$this->web_dir . '/wp/composer.json',
+			$this->web_dir . '/wp/readme.html',
+			$this->web_dir . '/wp/license.txt',
+		];
+
+		foreach ( $files as $file ) {
+			if ( file_exists( $file ) ) {
+				unlink( $file );
+			}
+		}
+
+		// Make a copy of web/wp/index.php, modify it as appropriate, and place it
+		// in web/.
+		$index = file_get_contents( $this->web_dir . '/wp/index.php' );
+		$index = str_replace( '/wp-blog-header.php', '/wp/wp-blog-header.php', $index );
+		file_put_contents( $this->web_dir . '/index.php', $index );
+
+		// "Silence is golden" files to prevent directory access.
+		$silence  = "<?php\n";
+		$silence .= "// Silence is golden.\n";
+
+		file_put_contents( $this->web_dir . '/wp-content/index.php', $silence );
+		file_put_contents( $this->web_dir . '/wp-content/mu-plugins/index.php', $silence );
+		file_put_contents( $this->web_dir . '/wp-content/plugins/index.php', $silence );
+		file_put_contents( $this->web_dir . '/wp-content/themes/index.php', $silence );
+	}
+
+	private function install_mu_plugins() {
+		// Set our source (vendor) and destination (wp-contents) directories.
+		$vendor    = __DIR__ . '/../vendor/taupecatstudios/mu-plugins';
+		$muplugins = $this->web_dir . '/wp-content/mu-plugins';
+
+		// Copy the ManageWP Worker and WP Migrate DB Pro compatibility must-use
+		// plugins.
+		copy( $vendor . '/0-worker.php', $muplugins . '/0-worker.php' );
+		copy( $vendor . '/wp-migrate-db-pro-compatibility.php', $muplugins . '/wp-migrate-db-pro-compatibility.php' );
+
+		// Delete the existing "taupecatstudios" directory.
+		\Taupecat_Studios\remove_directory( $muplugins . '/taupecatstudios' );
+
+		// Copy the "taupecatstudios" directory from vendor.
+		mkdir( $muplugins . '/taupecatstudios' );
+		\Taupecat_Studios\copy_files( $vendor . '/taupecatstudios', $muplugins . '/taupecatstudios' );
+
+		// Copy the taupecatstudios.php loader file.
+		copy( $vendor . '/taupecatstudios.php', $muplugins . '/taupecatstudios.php' );
 	}
 }
 
-// Delete the default "wp-content" directory and create a symlink to the actual one.
-if ( ! is_link( WEB_DIR . 'wp/wp-content' ) ) {
-
-	\Taupecat_Studios\remove_directory( WEB_DIR . 'wp/wp-content' );
-	chdir( WEB_DIR . 'wp' );
-	symlink( '../wp-content', 'wp-content' );
-	chdir( __DIR__ );
-}
-
-// Make a copy of web/wp/index.php, modify it as appropriate, and
-// place it in web/.
-$index = file_get_contents( WEB_DIR . 'wp/index.php' );
-$index = str_replace( '/wp-blog-header.php', '/wp/wp-blog-header.php', $index );
-file_put_contents( WEB_DIR . 'index.php', $index );
-
-// "Silence is golden" files to prevent directory access.
-$silence = <<<EOT
-<?php
-// Silence is golden.
-
-EOT;
-
-file_put_contents( WEB_DIR . 'wp-content/index.php', $silence );
-file_put_contents( WEB_DIR . 'wp-content/plugins/index.php', $silence );
-file_put_contents( WEB_DIR . 'wp-content/themes/index.php', $silence );
-
-// Chmod all the files in web/wp-content/plugins to 644.
-\Taupecat_Studios\chmod_files( WEB_DIR . 'wp-content/plugins' );
-
-exit();
+( new Install() )->init();

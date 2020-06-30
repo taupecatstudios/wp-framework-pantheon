@@ -27,9 +27,9 @@
   ],
   "require": {
     "johnpbloch/wordpress": "*",
-    "taupecatstudios/mu-plugins": "^1.5",
+    "taupecatstudios/mu-plugins": "*",
 
-    "philippbaschke/acf-pro-installer": "^1.0",
+    "philippbaschke/acf-pro-installer": "*",
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
 
     "deliciousbrains-plugin/wp-migrate-db-pro": "*",
@@ -67,20 +67,21 @@
   "extra": {
     "wordpress-install-dir": "web/wp",
     "installer-paths": {
-      "web/wp-content/plugins/{$name}": ["type:wordpress-plugin"],
-      "web/wp-content/themes/{$name}": ["type:wordpress-theme"]
+      "web/wp-content/plugins/{$name}": [
+        "type:wordpress-plugin"
+      ],
+      "web/wp-content/themes/{$name}": [
+        "type:wordpress-theme"
+      ]
     }
   },
   "scripts": {
-    "wp-core": "@php scripts/composer.php",
-    "wp-muplugin": "rsync -rc --exclude=composer.json --exclude=.git vendor/taupecatstudios/mu-plugins/ web/wp-content/mu-plugins/",
+    "wp-composer": "@php scripts/composer.php",
     "post-update-cmd": [
-      "@wp-core",
-      "@wp-muplugin"
+      "@wp-composer"
     ],
     "post-install-cmd": [
-      "@wp-core",
-      "@wp-muplugin"
+      "@wp-composer"
     ]
   }
 }
