@@ -10,6 +10,9 @@
 
 $project_name = '##PROJECT##';
 $live_url     = '##PRODUCTION_DOMAIN##';
+$table_prefix = '##TABLE_PREFIX##';
+
+define( 'TC_SITE_LIVE', false );
 
 /**
  * Local configuration information.
@@ -72,43 +75,45 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 
 		/** A couple extra tweaks to help things run well on Pantheon. **/
 
+		switch ( $_ENV['PANTHEON_ENVIRONMENT'] ) {
+
+			case 'live':
+				$primary_domain = 'live-' . $project_name . '.pantheonsite.io';
+				if ( TC_SITE_LIVE ) {
+					$primary_domain = $live_url;
+				}
+				break;
+
+			case 'lando':
+				$primary_domain = $project_name . '.pantheonlocal.com';
+				define( 'WP_DEBUG', true );
+				break;
+
+			default:
+				$primary_domain = sprintf(
+					'%1$s-%2$s.pantheonsite.io',
+					$_ENV['PANTHEON_ENVIRONMENT'],
+					$project_name
+				);
+				break;
+		}
+
+		$base_url = 'https://' . $primary_domain;
+		define( 'WP_HOME', $base_url );
+		define( 'WP_SITEURL', WP_HOME . '/wp' );
+		define( 'WP_CONTENT_DIR', __DIR__ . '/wp-content' );
+		define( 'WP_CONTENT_URL', WP_HOME . '/wp-content' );
+
 		/** Always-on HTTPS */
 		if ( 'cli' !== php_sapi_name() ) {
 
-			switch ( $_ENV['PANTHEON_ENVIRONMENT'] ) {
-
-				case 'live':
-					// $primary_domain = $live_url;
-					$primary_domain = 'live-' . $project_name . '.pantheonsite.io';
-					break;
-
-				case 'lando':
-					$primary_domain = $project_name . '.pantheonlocal.com';
-					define( 'WP_DEBUG', true );
-					break;
-
-				default:
-					$primary_domain = sprintf(
-						'%1$s-%2$s.pantheonsite.io',
-						$_ENV['PANTHEON_ENVIRONMENT'],
-						$project_name
-					);
-					break;
-			}
-
 			$_SERVER['HTTPS'] = 'on';
-			$base_url = 'https://' . $primary_domain;
 
 			if ( ( $primary_domain !== $_SERVER['HTTP_HOST'] ) || ( ! isset( $_SERVER['HTTP_X_SSL'] ) ) || ( 'ON' !== $_SERVER['HTTP_X_SSL'] ) ) {
 				header( 'HTTP/1.0 301 Moved Permanently' );
 				header( 'Location: ' . $base_url . $_SERVER['REQUEST_URI'] );
 				exit();
 			}
-
-			define( 'WP_HOME', $base_url );
-			define( 'WP_SITEURL', WP_HOME . '/wp' );
-			define( 'WP_CONTENT_DIR', __DIR__ . '/wp-content' );
-			define( 'WP_CONTENT_URL', WP_HOME . '/wp-content' );
 		}
 
 		/** Don't show deprecations; useful under PHP 5.5 */
@@ -150,16 +155,6 @@ if ( ( file_exists( __DIR__ . '/wp-config-local.php' ) ) && ( ! isset( $_ENV['PA
 }
 
 /** Standard wp-config.php stuff from here on down. **/
-
-/**
- * WordPress Database Table prefix.
- *
- * You can have multiple installations in one database if you give each a unique
- * prefix. Only numbers, letters, and underscores please!
- */
-if ( ! isset( $table_prefix ) ) {
-	$table_prefix = '##TABLE_PREFIX##';
-}
 
 /**
  * WordPress Localized Language, defaults to English.
