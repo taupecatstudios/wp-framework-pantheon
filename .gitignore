@@ -1,8 +1,6 @@
 # Uploads #
 ###########
 /web/wp-content/uploads
-/uploads
-!/uploads/.gitkeep
 
 # WordPress Local Config #
 ##########################
