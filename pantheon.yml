@@ -5,4 +5,4 @@ php_version: 7.4
 web_docroot: true
 enforce_https: transitional
 protected_web_paths:
- - /acf-json
+  - /acf-json
