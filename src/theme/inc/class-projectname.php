@@ -92,9 +92,6 @@ class ##CLASSNAME## {
 
 		// Jetpack.
 		$this->jetpack();
-
-		// WooCommerce.
-		$this->woocommerce();
 	}
 
 	/**
@@ -192,24 +189,6 @@ class ##CLASSNAME## {
 			require $this->template_directory_inc . 'class-jetpack.php';
 
 			( new Jetpack() )->initialize();
-		}
-	}
-
-	/**
-	 * WooCommerce.
-	 *
-	 * @return void
-	 */
-	private function woocommerce() {
-
-		/**
-		 * Load WooCommerce compatibility file.
-		 */
-		if ( class_exists( 'WooCommerce' ) ) {
-
-			require $this->template_directory_inc . 'class-woocommerce.php';
-
-			( new WooCommerce() )->initialize();
 		}
 	}
 }
