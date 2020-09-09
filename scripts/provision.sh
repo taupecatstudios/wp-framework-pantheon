@@ -35,31 +35,35 @@ rm /etc/nginx/nginx.conf
 ln -s /vagrant/scripts/nginx.conf /etc/nginx/nginx.conf
 
 echo "Installing PHP"
+apt-get update
+apt -y install software-properties-common
+add-apt-repository ppa:ondrej/php
+apt-get update
 apt-get install -y \
 	ghostscript \
 	imagemagick \
-	php-cli \
-	php-curl \
-	php-fpm \
-	php-gd \
-	php-imagick \
-	php-json \
-	php-mbstring \
-	php-memcache \
-	php-mysql \
-	php-xdebug \
-	php-xml \
-	php-zip > /dev/null 2>&1
+	php7.4-cli \
+	php7.4-curl \
+	php7.4-fpm \
+	php7.4-gd \
+	php7.4-imagick \
+	php7.4-json \
+	php7.4-mbstring \
+	php7.4-memcache \
+	php7.4-mysql \
+	php7.4-xdebug \
+	php7.4-xml \
+	php7.4-zip > /dev/null 2>&1
 
-rm /etc/php/7.2/fpm/php.ini
-ln -s /vagrant/scripts/php.ini /etc/php/7.2/fpm/php.ini
+rm /etc/php/7.4/fpm/php.ini
+ln -s /vagrant/scripts/php.ini /etc/php/7.4/fpm/php.ini
 
 # Update ImageMagick policies so WordPress can create PDF thumbnail images.
 sed -i 's/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/g' /etc/ImageMagick-6/policy.xml
 sed -i 's/<\/policymap>/  <policy domain="coder" rights="read|write" pattern="LABEL" \/>\n<\/policymap>/g' /etc/ImageMagick-6/policy.xml
 
-rm /etc/php/7.2/fpm/pool.d/www.conf
-ln -s /vagrant/scripts/www.conf /etc/php/7.2/fpm/pool.d/www.conf
+rm /etc/php/7.4/fpm/pool.d/www.conf
+ln -s /vagrant/scripts/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 # echo "Installing PHPUnit"
 # wget -nv https://phar.phpunit.de/phpunit.phar
