@@ -24,7 +24,7 @@
     "gulp-changed": "^4.0.2",
     "gulp-composer": "^0.4.5",
     "gulp-concat": "^2.6.1",
-    "gulp-depend": "^1.2.5",
+    "gulp-depend": "^1.1.0",
     "gulp-eslint": "^6.0.0",
     "gulp-livereload": "^4.0.2",
     "gulp-load-plugins": "^2.0.4",
