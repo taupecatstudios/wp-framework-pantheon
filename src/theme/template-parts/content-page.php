@@ -17,7 +17,7 @@
 	</header>
 	<!-- .entry-header -->
 
-	<?php \%%VARPREFIX%%\theme\post_thumbnail(); ?>
+	<?php \##VARPREFIX##\theme\post_thumbnail(); ?>
 
 	<div class="entry-content">
 
