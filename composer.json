@@ -41,7 +41,7 @@
     "deliciousbrains-plugin/wp-migrate-db-pro-media-files": "*",
 
     "wpmudev/wpmu-dev-dashboard": "*",
-    "wpmudev/smush-pro": "*",
+    "wpmudev/wp-smush-pro": "*",
 
     "wpackagist-plugin/akismet": "*",
     "wpackagist-plugin/debug-bar": "*",
