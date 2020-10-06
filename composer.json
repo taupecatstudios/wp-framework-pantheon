@@ -17,6 +17,10 @@
     },
     {
       "type": "composer",
+      "url": "https://premium.wpmudev.org"
+    },
+    {
+      "type": "composer",
       "url": "https://composer.taupecatstudios.dev"
     },
     {
@@ -36,10 +40,11 @@
     "deliciousbrains-plugin/wp-migrate-db-pro-cli": "*",
     "deliciousbrains-plugin/wp-migrate-db-pro-media-files": "*",
 
+    "wpmudev/wpmu-dev-dashboard": "*",
+    "wpmudev/smush-pro": "*",
+
     "wpackagist-plugin/akismet": "*",
-    "wpackagist-plugin/classic-editor": "*",
     "wpackagist-plugin/debug-bar": "*",
-    "wpackagist-plugin/google-analytics-for-wordpress": "*",
     "wpackagist-plugin/iq-block-country": "*",
     "wpackagist-plugin/limit-login-attempts-reloaded": "*",
     "wpackagist-plugin/pantheon-advanced-page-cache": "*",
@@ -49,7 +54,6 @@
     "wpackagist-plugin/two-factor-authentication": "*",
     "wpackagist-plugin/worker": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
-    "wpackagist-plugin/wp-smushit": "*",
 
     "wpackagist-theme/twentyseventeen": "*",
     "wpackagist-theme/twentynineteen": "*",
