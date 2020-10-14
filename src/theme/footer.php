@@ -9,6 +9,9 @@
  * @package ##PACKAGE##
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 ?>
 
 	</div>
