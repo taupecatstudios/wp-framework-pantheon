@@ -114,7 +114,7 @@ Vagrant.configure("2") do |config|
 
     # Restart PHP and nginx after up to make sure symlinked config files are read
     config.trigger.after [:up, :reload] do |trigger|
-      trigger.run_remote = {inline: "service php7.2-fpm restart && service nginx restart"}
+      trigger.run_remote = {inline: "service php7.4-fpm restart && service nginx restart"}
     end
 
     # Do a database dump at every `vagrant halt` in case we need to destroy the machine
