@@ -75,7 +75,6 @@ if ( ! defined( 'WP_DEBUG' ) ) {
  * displaying errors on the screen.
  */
 if ( WP_DEBUG ) {
-	define( 'WP_DEBUG_DISPLAY', false );
 	define( 'WP_DEBUG_LOG', __DIR__ . '/../debug.log' );
 	define( 'SAVEQUERIES', true );
 
@@ -85,8 +84,17 @@ if ( WP_DEBUG ) {
 	}
 }
 
+/** ALWAYS turn off displaying errors on the screen. */
+ini_set( 'display_errors', 'Off' );
+ini_set( 'error_reporting', E_ALL );
+if ( ! defined( 'WP_DEBUG_DISPLAY' ) ) {
+	define( 'WP_DEBUG_DISPLAY', false );
+}
+
 /** Miscellaneous */
-define( 'DISALLOW_FILE_EDIT', true );
+if ( ! defined( 'DISALLOW_FILE_EDIT' ) ) {
+	define( 'DISALLOW_FILE_EDIT', true );
+}
 
 /* That's all, stop editing! Happy Pressing. */
 
