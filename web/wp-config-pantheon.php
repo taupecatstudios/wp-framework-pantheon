@@ -63,7 +63,7 @@ switch ( $_ENV['PANTHEON_ENVIRONMENT'] ) {
 		break;
 
 	case 'lando':
-		$primary_domain = $project_name . '.pantheonlocal.com';
+		$primary_domain = $project_name . '.lndo.site';
 		define( 'WP_DEBUG', true );
 		break;
 
@@ -88,7 +88,7 @@ define( 'WP_CONTENT_DIR', __DIR__ . '/wp-content' );
 define( 'WP_CONTENT_URL', WP_HOME . '/wp-content' );
 
 /** Always-on HTTPS */
-if ( 'cli' !== php_sapi_name() ) {
+if ( ( 'cli' !== php_sapi_name() ) && ( ! isset( $_SERVER['LANDO_WEBROOT'] ) ) ) {
 
 	$_SERVER['HTTPS'] = 'on';
 
