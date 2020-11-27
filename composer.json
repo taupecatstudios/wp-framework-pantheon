@@ -33,7 +33,7 @@
     "johnpbloch/wordpress": "*",
     "taupecatstudios/mu-plugins": "*",
 
-    "philippbaschke/acf-pro-installer": "*",
+    "pivvenit/acf-pro-installer": "*",
     "advanced-custom-fields/advanced-custom-fields-pro": "*",
 
     "deliciousbrains-plugin/wp-migrate-db-pro": "*",
