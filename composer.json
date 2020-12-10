@@ -29,6 +29,10 @@
       "name": "taupecatstudios/mu-plugins"
     }
   ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.*",
+    "wp-coding-standards/wpcs": "^2.1"
+  },
   "require": {
     "johnpbloch/wordpress": "*",
     "taupecatstudios/mu-plugins": "*",

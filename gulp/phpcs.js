@@ -1,6 +1,8 @@
 export default ( gulp, plugins, args, paths, project ) => {
 
-	const options = {};
+	const options = {
+		bin: paths.base + '/vendor/squizlabs/php_codesniffer/bin/phpcs',
+	};
 
 	gulp.task( 'phpcs', gulp.parallel( [ 'phpcs:theme', 'phpcs:plugin' ] ) );
 
