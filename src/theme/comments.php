@@ -39,7 +39,7 @@ if ( post_password_required() ) {
 					'<span>' . get_the_title() . '</span>'
 				);
 			} else {
-				printf( // WPCS: XSS OK.
+				printf( // phpcs:ignore
 					/* translators: 1: comment count number, 2: title. */
 					esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $##VARPREFIX##_comment_count, 'comments title', '##TEXTDOMAIN##' ) ),
 					number_format_i18n( $##VARPREFIX##_comment_count ),

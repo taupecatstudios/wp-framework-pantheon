@@ -89,9 +89,6 @@ class ##CLASSNAME## {
 
 		// Customizer.
 		$this->customizer();
-
-		// Jetpack.
-		$this->jetpack();
 	}
 
 	/**
@@ -172,23 +169,5 @@ class ##CLASSNAME## {
 		require_once $this->template_directory_inc . 'class-customizer.php';
 
 		( new Customizer() )->initialize();
-	}
-
-	/**
-	 * Jetpack.
-	 *
-	 * @return void
-	 */
-	private function jetpack() {
-
-		/**
-		 * Load Jetpack compatibility file.
-		 */
-		if ( defined( 'JETPACK__VERSION' ) ) {
-
-			require $this->template_directory_inc . 'class-jetpack.php';
-
-			( new Jetpack() )->initialize();
-		}
 	}
 }
