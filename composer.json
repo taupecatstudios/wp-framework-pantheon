@@ -59,9 +59,7 @@
     "wpackagist-plugin/worker": "*",
     "wpackagist-plugin/wp-native-php-sessions": "*",
 
-    "wpackagist-theme/twentyseventeen": "*",
-    "wpackagist-theme/twentynineteen": "*",
-    "wpackagist-theme/twentytwenty": "*"
+    "wpackagist-theme/twentytwentyone": "*"
   },
   "license": "MIT",
   "authors": [
