@@ -1,0 +1,21 @@
+name: ##PROJECT##
+recipe: pantheon
+config:
+  framework: wordpress
+  site: ##PROJECT##
+  id: ##PANTHEON_SITE_ID##
+  xdebug: "debug,develop"
+  index: false
+  cache: false
+services:
+  appserver:
+    build_as_root:
+      - sed -i 's/rights="none" pattern="PDF"/rights="read|write" pattern="PDF"/g' /etc/ImageMagick-6/policy.xml
+      - sed -i 's/<\/policymap>/  <policy domain="coder" rights="read|write" pattern="LABEL" \/>\n<\/policymap>/g' /etc/ImageMagick-6/policy.xml
+    config:
+      php: config/php.ini
+  mailhog:
+    type: mailhog:v1.0.0
+    portforward: true
+    hogfrom:
+      - appserver
