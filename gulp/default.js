@@ -12,5 +12,5 @@ export default ( gulp, plugins, args, paths, project ) => {
 		'theme',
 	];
 
-	gulp.task( 'default', gulp.series( 'composer', gulp.parallel( tasks ) ) );
+	gulp.task( 'default', gulp.parallel( tasks ) );
 };
